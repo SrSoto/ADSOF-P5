@@ -1,5 +1,8 @@
 package p4clases;
 
-public class Funcion {
+import java.util.List;
 
+public class Funcion extends Nodo{
+
+	
 }
