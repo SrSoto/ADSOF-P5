@@ -1,39 +1,32 @@
 package p4clases;
 
-import java.util.List;
 
-public class Funcion extends Nodo{
+public abstract class Funcion extends Nodo{
 
-	public Funcion(String raiz) {
+	private int nHijos;
+	
+	public Funcion(String raiz, int nHijos) {
 		super(raiz);
+		this.nHijos = nHijos;
 	}
 
 	@Override
 	public void incluirDescendiente(INodo nodo) {
-		if(nodo == null) {
+		if(nodo == null || getDescendientes().size()==nHijos) {
 			return;
 		}
-		getDescendientes().add(nodo);
-		
-	}
-
-	@Override
-	public double calcular() {
-		// TODO Auto-generated method stub
-		return 0;
+		getDescendientes().add(nodo);		
 	}
 
 	@Override
 	public INodo copy() {
 		Terminal copy = new Terminal(this.getRaiz());
-		List<INodo> descendientes = this.getDescendientes();
-		for(INodo descendiente: descendientes) {
-			copy.incluirDescendiente(descendiente);
-		}
+		copy.getDescendientes().addAll(this.getDescendientes());
 		return copy;
+	}	
+
+	public int getNHijos() {
+		return this.nHijos;
 	}
-	
-	
-	
 	
 }
