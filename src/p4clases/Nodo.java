@@ -9,16 +9,15 @@ import java.util.*;
  * @author manue
  *
  */
-public abstract class Nodo implements INodo{
+public abstract class Nodo implements INodo {
 
 	private final String raiz;
 	private List<INodo> descendientes = new ArrayList<INodo>();
-	
-	
+
 	public Nodo(String raiz) {
 		this.raiz = raiz;
 	}
-	
+
 	/**
 	 * Devuelve el simbolo que representa el nodo, es decir, el símbolo del Terminal
 	 * o la Función.
@@ -37,7 +36,7 @@ public abstract class Nodo implements INodo{
 	 * @return Lista con los descendientes del nodo.
 	 */
 	@Override
-	public List<INodo> getDescendientes(){
+	public List<INodo> getDescendientes() {
 		return descendientes;
 	}
 }
