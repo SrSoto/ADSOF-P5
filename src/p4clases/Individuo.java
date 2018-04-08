@@ -3,28 +3,30 @@ package p4clases;
 import java.util.List;
 
 public class Individuo implements IIndividuo {
+	private INodo expresion;
+	private double fitness;
+	private int numeroNodos;
+	
 
 	@Override
 	public INodo getExpresion() {
-		// TODO Auto-generated method stub
-		return null;
+		return expresion;
 	}
 
 	@Override
 	public void setExpresion(INodo expresion) {
-		// TODO Auto-generated method stub
+		this.expresion=expresion;
 
 	}
 
 	@Override
 	public double getFitness() {
-		// TODO Auto-generated method stub
-		return 0;
+		return fitness;
 	}
 
 	@Override
 	public void setFitness(double fitness) {
-		// TODO Auto-generated method stub
+		this.fitness=fitness;
 
 	}
 
@@ -42,8 +44,7 @@ public class Individuo implements IIndividuo {
 
 	@Override
 	public int getNumeroNodos() {
-		// TODO Auto-generated method stub
-		return 0;
+		return numeroNodos;
 	}
 
 	@Override
