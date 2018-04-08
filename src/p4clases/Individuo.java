@@ -49,8 +49,7 @@ public class Individuo implements IIndividuo {
 
 	@Override
 	public void writeIndividuo() {
-		// TODO Auto-generated method stub
-
+		System.out.println(this.expresion);
 	}
 
 }
