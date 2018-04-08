@@ -17,6 +17,7 @@ import nodos.terminales.TerminalAritmetico;
  *
  */
 public class DominioAritmetico extends Dominio {
+	private static final double margen = 1;
 	private HashMap<Double, Double> valoresPrueba = new HashMap<Double, Double>();
 
 	/**
@@ -79,7 +80,6 @@ public class DominioAritmetico extends Dominio {
 		String[] token;
 		BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(ficheroDatos)));
 		while ((linea = buffer.readLine()) != null) {
-			System.out.println(linea);
 			token = linea.split("\t");
 			valoresPrueba.put(Double.parseDouble(token[0]), Double.parseDouble(token[1]));
 		}
@@ -103,7 +103,7 @@ public class DominioAritmetico extends Dominio {
 		for (Double d : valores) {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
-			if (valor == valoresPrueba.get(d)) {
+			if (Math.abs(valor - valoresPrueba.get(d))<=margen) {
 				fitness++;
 			}
 		}
