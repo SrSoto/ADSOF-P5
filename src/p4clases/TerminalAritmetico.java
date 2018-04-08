@@ -14,5 +14,23 @@ public class TerminalAritmetico extends Terminal {
 	public TerminalAritmetico(String simbolo) {
 		super(simbolo);
 	}
+	
+	/**
+	 * Asigna el valor del nodo hoja
+	 * 
+	 * @param double valor del nodo hoja
+	 */
+	public static void setValor(double v) {
+		valor=v;
+	}
+	
+	/**
+	 * Devuelve el valor del nodo hoja
+	 * 
+	 * @return double valor del nodo hoja
+	 */
+	public static double getValor() {
+		return valor;
+	}
 
 }
