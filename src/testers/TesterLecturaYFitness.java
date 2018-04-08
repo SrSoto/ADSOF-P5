@@ -1,8 +1,21 @@
-package p4clases;
+package testers;
 
-public class TesterIndividuos {
+import java.io.*;
 
-	public static void main(String[] args) {
+import dominio.DominioAritmetico;
+import dominio.IDominio;
+import individuos.*;
+import nodos.funciones.*;
+import nodos.terminales.*;
+
+public class TesterLecturaYFitness {
+
+	public static void main(String[] args) throws IOException, IOException {
+		IDominio domAritm;
+		double fitness;
+
+		domAritm = new DominioAritmetico();
+		domAritm.definirValoresPrueba("valoresReducido.txt");
 		Terminal x = new TerminalAritmetico("x");
 		Funcion suma = new FuncionSuma("+", 2);
 		Funcion resta = new FuncionResta("-", 2);
@@ -13,16 +26,15 @@ public class TesterIndividuos {
 		suma.incluirDescendiente(x);
 		resta.incluirDescendiente(suma);
 		resta.incluirDescendiente(multi);
-		System.out.println("Función multiplicación: " + multi);
-		System.out.println();
-		System.out.println("Función suma: " + suma);
-		System.out.println();
-		System.out.println("Función resta: " + resta);
+
 		IIndividuo indiv = new Individuo();
 		indiv.setExpresion(resta);
 		System.out.println();
 		System.out.println("INDIVIDUO");
 		indiv.writeIndividuo();
-	}
+		System.out.println();
+		fitness = domAritm.calcularFitness(indiv);
+		System.out.println("\nFITNESS= "+fitness);
+		}
 
 }

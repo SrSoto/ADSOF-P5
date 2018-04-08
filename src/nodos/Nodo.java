@@ -1,7 +1,7 @@
 /**
  * 
  */
-package p4clases;
+package nodos;
 
 import java.util.*;
 
@@ -31,6 +31,7 @@ public abstract class Nodo implements INodo {
 	public String getRaiz() {
 		return raiz;
 	}
+	
 
 	/**
 	 * Devuelve los argumentos, en el caso de las funciones. En el caso de los

@@ -1,6 +1,10 @@
-package p4clases;
+package individuos;
 
-import java.util.List;
+import java.util.*;
+
+import nodos.INodo;
+import nodos.funciones.Funcion;
+import nodos.terminales.Terminal;
 
 public class Individuo implements IIndividuo {
 	private INodo expresion;
@@ -27,19 +31,25 @@ public class Individuo implements IIndividuo {
 	@Override
 	public void setFitness(double fitness) {
 		this.fitness=fitness;
-
 	}
 
 	@Override
 	public void crearIndividuoAleatorio(int profundidad, List<Terminal> terminales, List<Funcion> funciones) {
-		// TODO Auto-generated method stub
+		Random rand = new Random();
+		int funcionesSize = 0;
+		int terminalesSize = 0;
+		if(profundidad <= 0 || terminales.isEmpty() || funciones.isEmpty()) {
+			return;
+		}
+		funcionesSize = funciones.size();
+		terminalesSize = terminales.size();
+		this.expresion = funciones.get(rand.nextInt(funcionesSize));
 
 	}
 
 	@Override
 	public double calcularExpresion() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.expresion.calcular();
 	}
 
 	@Override
@@ -49,8 +59,7 @@ public class Individuo implements IIndividuo {
 
 	@Override
 	public void writeIndividuo() {
-		// TODO Auto-generated method stub
-
+		System.out.println(this.expresion);
 	}
 
 }
