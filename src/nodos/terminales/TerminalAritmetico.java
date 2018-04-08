@@ -1,4 +1,4 @@
-package p4clases;
+package nodos.terminales;
 
 /**
  * Clase que implementa el nodo hoja aritmetico para los arboles de la

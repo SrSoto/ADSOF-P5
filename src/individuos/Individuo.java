@@ -1,6 +1,10 @@
-package p4clases;
+package individuos;
 
 import java.util.List;
+
+import nodos.INodo;
+import nodos.funciones.Funcion;
+import nodos.terminales.Terminal;
 
 public class Individuo implements IIndividuo {
 	private INodo expresion;
@@ -27,7 +31,6 @@ public class Individuo implements IIndividuo {
 	@Override
 	public void setFitness(double fitness) {
 		this.fitness=fitness;
-
 	}
 
 	@Override
@@ -38,8 +41,7 @@ public class Individuo implements IIndividuo {
 
 	@Override
 	public double calcularExpresion() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.expresion.calcular();
 	}
 
 	@Override

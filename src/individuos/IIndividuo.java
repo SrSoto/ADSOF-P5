@@ -1,6 +1,10 @@
-package p4clases;
+package individuos;
 
 import java.util.*;
+
+import nodos.INodo;
+import nodos.funciones.Funcion;
+import nodos.terminales.Terminal;
 
 /**
  * Interfaz de metodos para cada individuo de cada generacion.

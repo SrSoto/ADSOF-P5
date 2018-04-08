@@ -1,4 +1,13 @@
-package p4clases;
+package testers;
+
+import individuos.IIndividuo;
+import individuos.Individuo;
+import nodos.funciones.Funcion;
+import nodos.funciones.FuncionMultiplicacion;
+import nodos.funciones.FuncionResta;
+import nodos.funciones.FuncionSuma;
+import nodos.terminales.Terminal;
+import nodos.terminales.TerminalAritmetico;
 
 public class TesterIndividuos {
 

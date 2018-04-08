@@ -1,7 +1,7 @@
 /**
  * 
  */
-package p4clases;
+package nodos;
 
 import java.util.*;
 

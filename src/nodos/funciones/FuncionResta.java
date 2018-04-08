@@ -1,6 +1,8 @@
-package p4clases;
+package nodos.funciones;
 
 import java.util.List;
+
+import nodos.INodo;
 
 /**
  * Este programa implementa el nodo función correspondiente a la resta, para el

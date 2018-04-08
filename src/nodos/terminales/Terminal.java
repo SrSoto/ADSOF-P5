@@ -1,5 +1,7 @@
-package p4clases;
+package nodos.terminales;
 
+import nodos.INodo;
+import nodos.Nodo;
 
 /**
  * Clase que implementa el nodo hoja para los arboles de la representacion de un
