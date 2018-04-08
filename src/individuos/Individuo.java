@@ -62,4 +62,10 @@ public class Individuo implements IIndividuo {
 		System.out.println(this.expresion);
 	}
 
+	@Override
+	public void etiquetaNodos() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

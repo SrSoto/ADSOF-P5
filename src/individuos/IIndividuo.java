@@ -79,4 +79,8 @@ public interface IIndividuo {
 	 * Muestra la expresión que corresponde al individuo.
 	 */
 	public void writeIndividuo();
+	/**
+	 * Etiqueta el
+	 */
+	public void etiquetaNodos();
 }
