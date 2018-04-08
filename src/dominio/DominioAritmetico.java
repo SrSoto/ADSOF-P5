@@ -9,8 +9,8 @@ import nodos.terminales.Terminal;
 import nodos.terminales.TerminalAritmetico;
 
 /**
- * Este programa contiene la implementación de la clase del dominio aritmético
- * para un algoritmo genético.
+ * Este programa contiene la implementaciÃ³n de la clase del dominio aritmÃ©tico
+ * para un algoritmo genÃ©tico.
  * 
  * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
  *         miguel.baquedano@estudiante.uam.es
@@ -19,20 +19,30 @@ import nodos.terminales.TerminalAritmetico;
 public class DominioAritmetico extends Dominio {
 	private HashMap<Double, Double> valoresPrueba = new HashMap<Double, Double>();
 
-	@Override
+	/**
+	 * Devuelve el conjunto de terminales a partir de la lista de sus simbolos
+	 * 
+	 * @param String...
+	 *            conjunto de simbolos de los terminales a aÃ±adir
+	 * @return List<Terminal> 
+	 * 			  devuelve la lista de terminales aÃ±adidos
+	 */
 	public List<Terminal> definirConjuntoTerminales(String... terminales) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Terminal> retorno = new ArrayList<Terminal>();
+		for (String terminal : terminales) {
+			retorno.add(new TerminalAritmetico(terminal));
+		}
+		return retorno;
 	}
 
 	/**
-	 * Define el conjunto de funciones del dominio aritmético.
+	 * Define el conjunto de funciones del dominio aritmÃ©tico.
 	 * 
 	 * @param argumentos
-	 *            Lista con el número de argumentos de cada función
+	 *            Lista con el nÃºmero de argumentos de cada funciÃ³n
 	 * @param funciones
-	 *            Lista con los símbolos de cada función
-	 * @return Lista con los nodos de función del dominio.
+	 *            Lista con los sÃ­mbolos de cada funciÃ³n
+	 * @return Lista con los nodos de funciÃ³n del dominio.
 	 */
 	@Override
 	public List<Funcion> definirConjuntoFunciones(int[] argumentos, String... funciones)
@@ -57,19 +67,32 @@ public class DominioAritmetico extends Dominio {
 		return ret;
 	}
 
+	/**
+	 * Define los valores para la prueba
+	 * 
+	 * @param String
+	 *            ficheroDatos fichero de donde se carga los datos
+	 */
 	@Override
 	public void definirValoresPrueba(String ficheroDatos) throws FileNotFoundException, IOException {
+		String linea;
+		String[] token;
 		BufferedReader buffer = new BufferedReader(new InputStreamReader(new FileInputStream(ficheroDatos)));
-
+		while ((linea = buffer.readLine()) != null) {
+			System.out.println(linea);
+			token = linea.split("\t");
+			valoresPrueba.put(Double.parseDouble(token[0]), Double.parseDouble(token[1]));
+		}
+		buffer.close();
 	}
 
 	/**
 	 * Calcula el fitness dado un individuo en concordancia con el dominio
-	 * aritmético establecido.
+	 * aritmÃ©tico establecido.
 	 * 
 	 * @param individuo
 	 *            El individuo a examinar
-	 * @return double con el valor del fitness, que se trata del número de valores
+	 * @return double con el valor del fitness, que se trata del nÃºmero de valores
 	 *         del polinomio coincidentes.
 	 */
 	@Override
