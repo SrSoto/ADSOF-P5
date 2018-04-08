@@ -19,5 +19,7 @@ public abstract class Nodo implements INodo{
 		this.simbolo = simbolo;
 	}
 	
+	
+	
 
 }
