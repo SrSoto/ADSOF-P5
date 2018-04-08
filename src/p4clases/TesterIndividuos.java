@@ -23,6 +23,6 @@ public class TesterIndividuos {
 		System.out.println();
 		System.out.println("INDIVIDUO");
 		indiv.writeIndividuo();
-		}
+	}
 
 }
