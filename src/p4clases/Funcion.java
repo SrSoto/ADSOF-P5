@@ -1,5 +1,7 @@
 package p4clases;
 
+import java.util.List;
+
 /**
  * Clase abstracta de funciones, que son nodos con descendientes que forman el
  * árbol que representa un individuo.
@@ -58,6 +60,21 @@ public abstract class Funcion extends Nodo {
 	 */
 	public int getNHijos() {
 		return this.nHijos;
+	}
+
+	/**
+	 * Devuelve la String que representa el nodo y sus descendientes en notación
+	 * infijo.
+	 * 
+	 * @return String con la expresión infijo del nodo.
+	 */
+	public String toString() {
+		String ret = "(";
+		List<INodo> descendientes = this.getDescendientes();
+		for (int i = 0; i < nHijos - 1; i++) {
+			ret += descendientes.get(i) + this.getRaiz();
+		}
+		return ret + descendientes.get(nHijos - 1) + ")";
 	}
 
 }

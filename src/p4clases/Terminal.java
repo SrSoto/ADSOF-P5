@@ -1,6 +1,5 @@
 package p4clases;
 
-import java.util.List;
 
 /**
  * Clase que implementa el nodo hoja para los arboles de la representacion de un
@@ -45,5 +44,14 @@ public class Terminal extends Nodo {
 	@Override
 	public double calcular() {
 		return 0;
+	}
+
+	/**
+	 * Devuelve la String que representa al terminal, es decir, su símbolo.
+	 * 
+	 * @return String con el símbolo del terminal
+	 */
+	public String toString() {
+		return getRaiz();
 	}
 }
