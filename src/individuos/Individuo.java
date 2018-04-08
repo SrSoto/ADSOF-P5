@@ -1,6 +1,6 @@
 package individuos;
 
-import java.util.List;
+import java.util.*;
 
 import nodos.INodo;
 import nodos.funciones.Funcion;
@@ -35,7 +35,15 @@ public class Individuo implements IIndividuo {
 
 	@Override
 	public void crearIndividuoAleatorio(int profundidad, List<Terminal> terminales, List<Funcion> funciones) {
-		// TODO Auto-generated method stub
+		Random rand = new Random();
+		int funcionesSize = 0;
+		int terminalesSize = 0;
+		if(profundidad <= 0 || terminales.isEmpty() || funciones.isEmpty()) {
+			return;
+		}
+		funcionesSize = funciones.size();
+		terminalesSize = terminales.size();
+		this.expresion = funciones.get(rand.nextInt(funcionesSize));
 
 	}
 
