@@ -6,19 +6,21 @@ package p4clases;
 import java.util.*;
 
 /**
- * @author manue
- *
+ * Clase que implementa el nodo para los arboles de la representacion de un
+ * individuo de nuestro algoritmo genetico
+ * 
+ * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
+ *         miguel.baquedano@estudiante.uam.es
  */
-public abstract class Nodo implements INodo{
+public abstract class Nodo implements INodo {
 
 	private final String raiz;
 	private List<INodo> descendientes = new ArrayList<INodo>();
-	
-	
+
 	public Nodo(String raiz) {
 		this.raiz = raiz;
 	}
-	
+
 	/**
 	 * Devuelve el simbolo que representa el nodo, es decir, el símbolo del Terminal
 	 * o la Función.
@@ -37,7 +39,7 @@ public abstract class Nodo implements INodo{
 	 * @return Lista con los descendientes del nodo.
 	 */
 	@Override
-	public List<INodo> getDescendientes(){
+	public List<INodo> getDescendientes() {
 		return descendientes;
 	}
 }

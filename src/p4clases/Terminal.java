@@ -2,7 +2,15 @@ package p4clases;
 
 import java.util.List;
 
-public class Terminal extends Nodo{
+/**
+ * Clase que implementa el nodo hoja para los arboles de la representacion de un
+ * individuo de nuestro algoritmo genetico
+ * 
+ * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
+ *         miguel.baquedano@estudiante.uam.es
+ *
+ */
+public class Terminal extends Nodo {
 	public Terminal(String simbolo) {
 		super(simbolo);
 	}
@@ -27,6 +35,13 @@ public class Terminal extends Nodo{
 		return copy;
 	}
 
+	/**
+	 * Permite devolver un valor asociado al nodo. En el caso de un terminal será
+	 * simplemente un valor determinado, pero en el caso de las funciones debería
+	 * resolver alguna operación.
+	 * 
+	 * @return Valor del terminal o de la operacion recursiva.
+	 */
 	@Override
 	public double calcular() {
 		return 0;
