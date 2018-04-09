@@ -8,7 +8,7 @@ import nodos.Nodo;
 
 public class PruebaCruce {
 
-	public static List<IIndividuo> cruce(IIndividuo prog1, IIndividuo prog2) throws CruceNuloException {
+	public List<IIndividuo> cruce(IIndividuo prog1, IIndividuo prog2) throws CruceNuloException {
 		Random rand = new Random();
 		List<IIndividuo> retorno = new ArrayList<IIndividuo>();
 
@@ -27,8 +27,8 @@ public class PruebaCruce {
 		Individuo copia1 = ((Individuo) prog1).copy();
 		Individuo copia2 = ((Individuo) prog2).copy();
 
-		copia1.remplazarNodo(etiqueta1, nodo2);
-		copia2.remplazarNodo(etiqueta2, nodo1);
+		copia1.reemplazar(etiqueta1, nodo2);
+		copia2.reemplazar(etiqueta2, nodo1);
 
 		System.out.println("\nDESCENDIENTE 1 (Prueba Cruce)");
 		copia1.writeIndividuo();

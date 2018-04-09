@@ -4,7 +4,6 @@ import java.util.List;
 
 import nodos.INodo;
 import nodos.Nodo;
-import nodos.terminales.Terminal;
 
 /**
  * Clase abstracta de funciones, que son nodos con descendientes que forman el

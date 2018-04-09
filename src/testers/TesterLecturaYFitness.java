@@ -8,6 +8,13 @@ import individuos.*;
 import nodos.funciones.*;
 import nodos.terminales.*;
 
+/**
+ * Clase que prueba el correcto funcionamiento de calcular el fitness de los
+ * individuos, usado para el algoritmo genético.
+ * 
+ * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
+ *         miguel.baquedano@estudiante.uam.es
+ */
 public class TesterLecturaYFitness {
 
 	public static void main(String[] args) throws IOException, IOException {
@@ -34,7 +41,7 @@ public class TesterLecturaYFitness {
 		indiv.writeIndividuo();
 		System.out.println();
 		fitness = domAritm.calcularFitness(indiv);
-		System.out.println("\nFITNESS= "+fitness);
-		}
+		System.out.println("\nFITNESS= " + fitness);
+	}
 
 }

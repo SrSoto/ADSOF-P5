@@ -2,6 +2,8 @@ package nodos;
 
 import java.util.*;
 
+import cruces.IEtiquetable;
+
 /**
  * Interfaz de funciones para cada nodo de los arboles.
  * 
@@ -9,7 +11,7 @@ import java.util.*;
  *         miguel.baquedano@estudiante.uam.es
  *
  */
-public interface INodo {
+public interface INodo extends IEtiquetable{
 	/**
 	 * Devuelve el simbolo que representa el nodo, es decir, el símbolo del Terminal
 	 * o la Función.
@@ -49,10 +51,4 @@ public interface INodo {
 	 * @return una copia del nodo.
 	 */
 	public INodo copy();
-
-	public int etiquetar(int etiqueta);
-
-	public INodo buscarPorEtiqueta(int etiqueta);
-
-	public void reemplazarNodo(int etiqueta, INodo sustituto);
 }

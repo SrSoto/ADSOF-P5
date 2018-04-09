@@ -9,6 +9,13 @@ import nodos.funciones.FuncionSuma;
 import nodos.terminales.Terminal;
 import nodos.terminales.TerminalAritmetico;
 
+/**
+ * Clase que prueba el correcto funcionamiento de la creación de individuos,
+ * para nuestro algoritmo genético.
+ * 
+ * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
+ *         miguel.baquedano@estudiante.uam.es
+ */
 public class TesterIndividuos {
 
 	public static void main(String[] args) {

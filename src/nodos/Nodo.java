@@ -5,6 +5,8 @@ package nodos;
 
 import java.util.*;
 
+import cruces.IEtiquetable;
+
 /**
  * Clase que implementa el nodo para los arboles de la representacion de un
  * individuo de nuestro algoritmo genetico
@@ -18,6 +20,12 @@ public abstract class Nodo implements INodo {
 	private int etiqueta;
 	private List<INodo> descendientes = new ArrayList<INodo>();
 
+	/**
+	 * Constructor de un nodo cualquiera.
+	 * 
+	 * @param raiz
+	 *            String que representa el símbolo del nodo.
+	 */
 	public Nodo(String raiz) {
 		this.raiz = raiz;
 	}
@@ -33,14 +41,6 @@ public abstract class Nodo implements INodo {
 		return raiz;
 	}
 
-	public int getEtiqueta() {
-		return etiqueta;
-	}
-
-	public void setEtiqueta(int e) {
-		etiqueta = e;
-	}
-
 	/**
 	 * Devuelve los argumentos, en el caso de las funciones. En el caso de los
 	 * terminales, la lista de descendientes estará vacía.
@@ -52,6 +52,35 @@ public abstract class Nodo implements INodo {
 		return descendientes;
 	}
 
+	/**
+	 * Devuelve la etiqueta del nodo.
+	 * 
+	 * @return int con la etiqueta.
+	 */
+	@Override
+	public int getEtiqueta() {
+		return etiqueta;
+	}
+
+	/**
+	 * Setter de la etiqueta del nodo.
+	 * 
+	 * @param e
+	 *            entero para etiquetar.
+	 */
+	@Override
+	public void setEtiqueta(int e) {
+		etiqueta = e;
+	}
+
+	/**
+	 * Etiqueta recursivamente el nodo y sus descendientes.
+	 * 
+	 * @param etiqueta
+	 *            Entero desde el que se comienza a etiquetar.
+	 * @return int con la última etiqueta establecida.
+	 */
+	@Override
 	public int etiquetar(int etiqueta) {
 		setEtiqueta(etiqueta);
 		etiqueta++;
@@ -61,8 +90,16 @@ public abstract class Nodo implements INodo {
 		return etiqueta;
 	}
 
+	/**
+	 * Devuelve el nodo cuya etiqueta coincide con la dada, buscando recursivamente
+	 * en los descendientes.
+	 * 
+	 * @param etiqueta
+	 *            entero con la etiqueta a buscar.
+	 * @return Objeto etiquetable cuya etiqueta coincide con la dada.
+	 */
 	@Override
-	public INodo buscarPorEtiqueta(int etiqueta) {
+	public IEtiquetable buscarPorEtiqueta(int etiqueta) {
 		System.out.println(etiqueta + " == " + this.etiqueta + "?");
 		if (etiqueta == this.etiqueta) {
 			System.out.println("Encontrado! " + this);
@@ -80,32 +117,23 @@ public abstract class Nodo implements INodo {
 		return descendientes.get(descendientes.size() - 1).buscarPorEtiqueta(etiqueta);
 	}
 
+	/**
+	 * Sustituye el nodo, cuya etiqueta es la dada, por otro.
+	 * 
+	 * @param etiqueta
+	 *            entero con la etiqueta a buscar.
+	 * @param sustituto
+	 *            Nodo que reemplazará al encontrado.
+	 */
 	@Override
-	public void reemplazarNodo(int etiqueta, INodo sustituto) {
-
-		/*
-		 * if (etiqueta == this.etiqueta) { Nodo swap = (Nodo) sustituto.copy();
-		 * System.out.println("Encontrado! " + this + " <--> " + swap);
-		 * this.descendientes = swap.getDescendientes(); this.raiz = swap.raiz; return;
-		 * } for (int i = 1; i < descendientes.size(); i++) {
-		 * System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": "
-		 * + ((Nodo)descendientes.get(i)).etiqueta); if (etiqueta < ((Nodo)
-		 * descendientes.get(i)).etiqueta) {
-		 * System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
-		 * descendientes.get(i - 1).reemplazarNodo(etiqueta, sustituto); return; } }
-		 * System.out.println("Buscaremos en el nodo: " +
-		 * descendientes.get(descendientes.size() - 1));
-		 * descendientes.get(descendientes.size() - 1).reemplazarNodo(etiqueta,
-		 * sustituto);
-		 */
-
+	public void reemplazar(int etiqueta, IEtiquetable sustituto) {
 		for (int i = 0; i < descendientes.size(); i++) {
 			// System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": "
 			// + ((Nodo)descendientes.get(i)).etiqueta);
 			Nodo descendiente = (Nodo) descendientes.get(i);
 			System.out.println(etiqueta + " == " + descendiente.etiqueta + "?");
 			if (etiqueta == descendiente.etiqueta) {
-				Nodo swap = (Nodo) sustituto.copy();
+				Nodo swap = (Nodo) ((Nodo) sustituto).copy();
 				System.out.println("Encontrado! " + this + " <--> " + swap);
 				this.getDescendientes().remove(i);
 				this.getDescendientes().add(i, swap);
@@ -113,7 +141,7 @@ public abstract class Nodo implements INodo {
 			}
 			if (etiqueta < descendiente.etiqueta) {
 				// System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
-				descendientes.get(i - 1).reemplazarNodo(etiqueta, sustituto);
+				descendientes.get(i - 1).reemplazar(etiqueta, sustituto);
 				return;
 			}
 		}
@@ -121,13 +149,13 @@ public abstract class Nodo implements INodo {
 		Nodo descendiente = (Nodo) descendientes.get(i);
 		System.out.println(etiqueta + " == " + descendiente.etiqueta + "?");
 		if (etiqueta == descendiente.etiqueta) {
-			Nodo swap = (Nodo) sustituto.copy();
+			Nodo swap = (Nodo) ((Nodo) sustituto).copy();
 			System.out.println("Encontrado! " + this + " <--> " + swap);
 			this.getDescendientes().remove(i);
 			this.getDescendientes().add(i, swap);
 			return;
 		}
-		descendientes.get(descendientes.size() - 1).reemplazarNodo(etiqueta, sustituto);
+		descendientes.get(descendientes.size() - 1).reemplazar(etiqueta, sustituto);
 	}
 
 }

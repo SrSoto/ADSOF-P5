@@ -7,6 +7,13 @@ import individuos.*;
 import nodos.terminales.*;
 import nodos.funciones.*;
 
+/**
+ * Clase que prueba el correcto funcionamiento de nuestros métodos de cruce,
+ * usados para el algoritmo genético.
+ * 
+ * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
+ *         miguel.baquedano@estudiante.uam.es
+ */
 public class TesterCruce {
 	public static void main(String[] args) {
 		PruebaCruce prueba = new PruebaCruce();

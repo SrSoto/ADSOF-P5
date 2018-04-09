@@ -2,6 +2,7 @@ package individuos;
 
 import java.util.*;
 
+import cruces.IEtiquetable;
 import nodos.INodo;
 import nodos.funciones.Funcion;
 import nodos.terminales.Terminal;
@@ -13,7 +14,7 @@ import nodos.terminales.Terminal;
  *         miguel.baquedano@estudiante.uam.es
  *
  */
-public interface IIndividuo {
+public interface IIndividuo extends IEtiquetable {
 	/**
 	 * Devuelve un Nodo que representa la raíz, es decir, el Nodo inicial del
 	 * individuo. Denominaremos expresión a la representación del individuo mediante
@@ -79,8 +80,11 @@ public interface IIndividuo {
 	 * Muestra la expresión que corresponde al individuo.
 	 */
 	public void writeIndividuo();
+
 	/**
-	 * Etiqueta el
+	 * Etiqueta los nodos de la clase etiquetable.
+	 * 
+	 * @return int con la última etiqueta establecida.
 	 */
-	public int etiquetaNodos();
+	int etiquetaNodos();
 }
