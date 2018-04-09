@@ -45,5 +45,19 @@ public class FuncionResta extends Funcion {
 
 		return ret;
 	}
+	
+	/**
+	 * Devuelve una copia de este nodo.
+	 * 
+	 * @return INodo con la copia del nodo función.
+	 */
+	@Override
+	public INodo copy() {
+		FuncionMultiplicacion copy = new FuncionMultiplicacion(this.getRaiz(),this.getNHijos());
+		for(INodo nodo : this.getDescendientes()) {
+			copy.incluirDescendiente(nodo.copy());
+		}
+		return copy;
+	}
 
 }

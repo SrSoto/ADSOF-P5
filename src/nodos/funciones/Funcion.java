@@ -42,20 +42,10 @@ public abstract class Funcion extends Nodo {
 		if (nodo == null || getDescendientes().size() == nHijos) {
 			return;
 		}
-		getDescendientes().add(nodo);
+		getDescendientes().add(nodo.copy());
 	}
 
-	/**
-	 * Devuelve una copia de este nodo.
-	 * 
-	 * @return INodo con la copia del nodo función.
-	 */
-	@Override
-	public INodo copy() {
-		Terminal copy = new Terminal(this.getRaiz());
-		copy.getDescendientes().addAll(this.getDescendientes());
-		return copy;
-	}
+
 
 	/**
 	 * Devuelve el número de hijos con los que opera la función.

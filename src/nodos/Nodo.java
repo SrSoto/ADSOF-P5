@@ -14,7 +14,7 @@ import java.util.*;
  */
 public abstract class Nodo implements INodo {
 
-	private final String raiz;
+	private String raiz;
 	private int etiqueta;
 	private List<INodo> descendientes = new ArrayList<INodo>();
 
@@ -63,21 +63,42 @@ public abstract class Nodo implements INodo {
 
 	@Override
 	public INodo buscarPorEtiqueta(int etiqueta) {
+		System.out.println(etiqueta + " == " + this.etiqueta + "?");
 		if (etiqueta == this.etiqueta) {
+			System.out.println("Encontrado! " + this);
 			return this;
 		}
 		for (int i = 1; i < descendientes.size(); i++) {
-			if (etiqueta <= ((Nodo) descendientes.get(i)).etiqueta) {
+			System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": " + ((Nodo)descendientes.get(i)).etiqueta);
+			if (etiqueta < ((Nodo) descendientes.get(i)).etiqueta) {
+				System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
 				return descendientes.get(i - 1).buscarPorEtiqueta(etiqueta);
 			}
 		}
+		System.out.println("Buscaremos en el nodo: " + descendientes.get(descendientes.size() - 1));
 		return descendientes.get(descendientes.size() - 1).buscarPorEtiqueta(etiqueta);
 	}
 
 	@Override
 	public void reemplazarNodo(int etiqueta, INodo sustituto) {
-		Nodo remplazado = (Nodo) this.buscarPorEtiqueta(etiqueta);
-		remplazado = (Nodo) sustituto.copy();
+		System.out.println(etiqueta + " == " + this.etiqueta + "?");
+		if (etiqueta == this.etiqueta) {
+			Nodo swap = (Nodo) sustituto.copy();
+			System.out.println("Encontrado! " + this + " <--> " + swap);
+			this.descendientes = swap.getDescendientes();
+			this.raiz = swap.raiz;
+			return;
+		}
+		for (int i = 1; i < descendientes.size(); i++) {
+			System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": " + ((Nodo)descendientes.get(i)).etiqueta);
+			if (etiqueta < ((Nodo) descendientes.get(i)).etiqueta) {
+				System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
+				descendientes.get(i - 1).reemplazarNodo(etiqueta, sustituto);
+				return;
+			}
+		}
+		System.out.println("Buscaremos en el nodo: " + descendientes.get(descendientes.size() - 1));
+		descendientes.get(descendientes.size() - 1).reemplazarNodo(etiqueta, sustituto);
 	}
 
 }

@@ -12,8 +12,8 @@ public class PruebaCruce {
 		Random rand = new Random();
 		List<IIndividuo> retorno = new ArrayList<IIndividuo>();
 
-		int etiqueta1 = rand.nextInt(prog1.getNumeroNodos());
-		int etiqueta2 = rand.nextInt(prog2.getNumeroNodos());
+		int etiqueta1 = rand.nextInt(prog1.getNumeroNodos()-1);
+		int etiqueta2 = rand.nextInt(prog2.getNumeroNodos()-1);
 		
 		if(etiqueta1 + etiqueta2 == 0) {
 			throw new CruceNuloException();
@@ -30,6 +30,11 @@ public class PruebaCruce {
 		copia1.remplazarNodo(etiqueta1, nodo2);
 		copia2.remplazarNodo(etiqueta2, nodo1);
 
+		System.out.println("\nDESCENDIENTE 1 (Prueba Cruce)");
+		copia1.writeIndividuo();
+		System.out.println("DESCENDIENTE 2 (Prueba Cruce)");
+		copia2.writeIndividuo();
+		
 		retorno.add(copia1);
 		retorno.add(copia2);
 
