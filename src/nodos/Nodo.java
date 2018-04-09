@@ -15,6 +15,7 @@ import java.util.*;
 public abstract class Nodo implements INodo {
 
 	private final String raiz;
+	private int etiqueta;
 	private List<INodo> descendientes = new ArrayList<INodo>();
 
 	public Nodo(String raiz) {
@@ -31,7 +32,14 @@ public abstract class Nodo implements INodo {
 	public String getRaiz() {
 		return raiz;
 	}
-	
+
+	public int getEtiqueta() {
+		return etiqueta;
+	}
+
+	public void setEtiqueta(int e) {
+		etiqueta = e;
+	}
 
 	/**
 	 * Devuelve los argumentos, en el caso de las funciones. En el caso de los
@@ -43,4 +51,33 @@ public abstract class Nodo implements INodo {
 	public List<INodo> getDescendientes() {
 		return descendientes;
 	}
+
+	public int etiquetar(int etiqueta) {
+		setEtiqueta(etiqueta);
+		etiqueta++;
+		for (INodo nodo : descendientes) {
+			etiqueta = nodo.etiquetar(etiqueta);
+		}
+		return etiqueta;
+	}
+
+	@Override
+	public INodo buscarPorEtiqueta(int etiqueta) {
+		if (etiqueta == this.etiqueta) {
+			return this;
+		}
+		for (int i = 1; i < descendientes.size(); i++) {
+			if (etiqueta <= ((Nodo) descendientes.get(i)).etiqueta) {
+				return descendientes.get(i - 1).buscarPorEtiqueta(etiqueta);
+			}
+		}
+		return descendientes.get(descendientes.size() - 1).buscarPorEtiqueta(etiqueta);
+	}
+
+	@Override
+	public void reemplazarNodo(int etiqueta, INodo sustituto) {
+		Nodo remplazado = (Nodo) this.buscarPorEtiqueta(etiqueta);
+		remplazado = (Nodo) sustituto.copy();
+	}
+
 }

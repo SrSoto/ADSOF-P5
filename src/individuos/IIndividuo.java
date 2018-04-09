@@ -82,5 +82,5 @@ public interface IIndividuo {
 	/**
 	 * Etiqueta el
 	 */
-	public void etiquetaNodos();
+	public int etiquetaNodos();
 }

@@ -49,4 +49,10 @@ public interface INodo {
 	 * @return una copia del nodo.
 	 */
 	public INodo copy();
+
+	public int etiquetar(int etiqueta);
+
+	public INodo buscarPorEtiqueta(int etiqueta);
+
+	public void reemplazarNodo(int etiqueta, INodo sustituto);
 }
