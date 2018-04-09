@@ -10,9 +10,9 @@ public class Individuo implements IIndividuo {
 	private INodo expresion;
 	private double fitness;
 	private int numeroNodos;
-	
+
 	public Individuo() {
-		
+
 	}
 
 	public Individuo(INodo expresion) {
@@ -28,7 +28,6 @@ public class Individuo implements IIndividuo {
 	@Override
 	public void setExpresion(INodo expresion) {
 		this.expresion = expresion;
-		
 
 	}
 
@@ -89,7 +88,11 @@ public class Individuo implements IIndividuo {
 	}
 
 	public void remplazarNodo(int etiqueta, INodo sustituto) {
-		expresion.reemplazarNodo(etiqueta, sustituto);
+		if (etiqueta == 0) {
+			this.expresion = sustituto.copy();
+		} else {
+			expresion.reemplazarNodo(etiqueta, sustituto);
+		}
 		this.etiquetaNodos();
 	}
 
