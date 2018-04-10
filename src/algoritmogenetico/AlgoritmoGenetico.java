@@ -21,7 +21,12 @@ import nodos.terminales.Terminal;
  *
  */
 public class AlgoritmoGenetico implements IAlgoritmo{
-	
+	private List<Terminal> terminales;
+	private List<Funcion> funciones;
+	private List<IIndividuo> individuos;
+	private final static int nIndividuos = 100;
+	private final static int maxGeneraciones = 100;	
+	private IDominio dominio;
 	public static void main(String[] args) {
 		
 	}
@@ -35,7 +40,7 @@ public class AlgoritmoGenetico implements IAlgoritmo{
 	 */
 	@Override
 	public void defineConjuntoTerminales(List<Terminal> terminales) {
-		// TODO Auto-generated method stub
+		this.terminales = terminales;
 		
 	}
 
@@ -50,7 +55,7 @@ public class AlgoritmoGenetico implements IAlgoritmo{
 	 */
 	@Override
 	public void defineConjuntoFunciones(List<Funcion> funciones) throws ArgsDistintosFuncionesException {
-		// TODO Auto-generated method stub
+		this.funciones = funciones;
 		
 	}
 
