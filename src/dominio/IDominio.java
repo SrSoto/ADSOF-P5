@@ -54,6 +54,8 @@ public interface IDominio {
 	 *             En caso de excepción de entrada/salida.
 	 */
 	public void definirValoresPrueba(String ficheroDatos) throws FileNotFoundException, IOException;
+	
+	public double fitnessObjetivo();
 
 	/**
 	 * Calcula el fitness de un individuo dado, a partir de los valores de prueba

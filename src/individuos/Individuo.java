@@ -13,7 +13,7 @@ import nodos.terminales.Terminal;
  * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
  *         miguel.baquedano@estudiante.uam.es
  */
-public class Individuo implements IIndividuo {
+public class Individuo implements IIndividuo, Comparable<Individuo>, Comparator<Individuo> {
 	private INodo expresion;
 	private double fitness;
 	private int numeroNodos;
@@ -104,8 +104,10 @@ public class Individuo implements IIndividuo {
 		}
 		funcionesSize = funciones.size();
 		terminalesSize = terminales.size();
-		this.expresion = funciones.get(rand.nextInt(funcionesSize));
+		this.expresion = funciones.get(rand.nextInt(funcionesSize)).copy();
 
+		((Funcion) this.expresion).arbolAleatorio(profundidad, terminales, funciones);
+		this.etiquetar(0);
 	}
 
 	/**
@@ -225,6 +227,20 @@ public class Individuo implements IIndividuo {
 			expresion.reemplazar(etiqueta, sustituto);
 		}
 		this.etiquetaNodos();
+	}
+
+	@Override
+	public int compareTo(Individuo individuo) {
+		if(this.fitness==individuo.fitness) {
+			return this.getNumeroNodos()-individuo.getNumeroNodos();
+		}
+		
+		return (int) (this.fitness-individuo.fitness);
+	}
+
+	@Override
+	public int compare(Individuo arg0, Individuo arg1) {
+		return arg0.compareTo(arg1);
 	}
 
 }

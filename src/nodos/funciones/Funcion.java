@@ -1,9 +1,11 @@
 package nodos.funciones;
 
 import java.util.List;
+import java.util.Random;
 
 import nodos.INodo;
 import nodos.Nodo;
+import nodos.terminales.Terminal;
 
 /**
  * Clase abstracta de funciones, que son nodos con descendientes que forman el
@@ -44,8 +46,6 @@ public abstract class Funcion extends Nodo {
 		getDescendientes().add(nodo.copy());
 	}
 
-
-
 	/**
 	 * Devuelve el número de hijos con los que opera la función.
 	 * 
@@ -68,6 +68,28 @@ public abstract class Funcion extends Nodo {
 			ret += descendientes.get(i) + this.getRaiz();
 		}
 		return ret + descendientes.get(nHijos - 1) + ")";
+	}
+
+	public void arbolAleatorio(int profundidad, List<Terminal> terminales, List<Funcion> funciones) {
+		Random rand = new Random();
+		int funcionesSize = funciones.size();
+		int terminalesSize = terminales.size();
+
+		if (profundidad == 0) {
+			return;
+		} else if (profundidad == 1) {
+			for(int i = 0; i<this.nHijos; i++) {
+				this.incluirDescendiente(terminales.get(rand.nextInt(terminalesSize)));
+			}
+		} else {
+			for(int i = 0;i<nHijos; i++) {
+			this.incluirDescendiente(funciones.get(rand.nextInt(funcionesSize)));
+			}
+			for(INodo descendiente: this.getDescendientes()) {
+				((Funcion) descendiente).arbolAleatorio(profundidad-1, terminales, funciones);
+			}
+		}
+		return;
 	}
 
 }

@@ -85,6 +85,10 @@ public class DominioAritmetico extends Dominio {
 		}
 		buffer.close();
 	}
+	
+	public double fitnessObjetivo(){
+		return valoresPrueba.keySet().size();
+	}
 
 	/**
 	 * Calcula el fitness dado un individuo en concordancia con el dominio

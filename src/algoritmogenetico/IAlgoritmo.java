@@ -6,6 +6,7 @@ import cruces.CruceNuloException;
 import dominio.ArgsDistintosFuncionesException;
 import dominio.IDominio;
 import individuos.IIndividuo;
+import individuos.Individuo;
 import nodos.funciones.Funcion;
 import nodos.terminales.Terminal;
 

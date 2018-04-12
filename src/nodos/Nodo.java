@@ -6,6 +6,8 @@ package nodos;
 import java.util.*;
 
 import cruces.IEtiquetable;
+import nodos.funciones.Funcion;
+import nodos.terminales.Terminal;
 
 /**
  * Clase que implementa el nodo para los arboles de la representacion de un
@@ -157,5 +159,7 @@ public abstract class Nodo implements INodo {
 		}
 		descendientes.get(descendientes.size() - 1).reemplazar(etiqueta, sustituto);
 	}
+	
+	
 
 }
