@@ -106,11 +106,12 @@ public class DominioAritmetico extends Dominio {
 		for (Double d : valores) {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
-			if(valor == this.valoresPrueba.get(d)) {
+			if(Math.abs(valor - this.valoresPrueba.get(d)) <= margen) {
 				fitness++;
 			}
+			//System.out.println("Valor " + d +"<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
 		}
-		// System.out.println("Fitness en calcularFitness: " + fitness);
+		 System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
 		return fitness;
 	}

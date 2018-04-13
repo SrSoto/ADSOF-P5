@@ -37,7 +37,6 @@ public class TerminalAritmetico extends Terminal {
 
 	@Override
 	public double calcular() {
-		// TODO Auto-generated method stub
 		return valor;
 	}
 

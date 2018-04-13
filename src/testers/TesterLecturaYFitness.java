@@ -22,7 +22,7 @@ public class TesterLecturaYFitness {
 		double fitness;
 
 		domAritm = new DominioAritmetico();
-		domAritm.definirValoresPrueba("valoresReducido.txt");
+		domAritm.definirValoresPrueba("valores.txt");
 		Terminal x = new TerminalAritmetico("x");
 		Funcion suma = new FuncionSuma("+", 2);
 		Funcion resta = new FuncionResta("-", 2);

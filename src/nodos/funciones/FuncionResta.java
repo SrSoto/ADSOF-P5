@@ -42,7 +42,6 @@ public class FuncionResta extends Funcion {
 		for (int i = 1; i < getNHijos(); i++) {
 			ret -= descendientes.get(i).calcular();
 		}
-
 		return ret;
 	}
 	

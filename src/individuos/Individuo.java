@@ -237,7 +237,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 	@Override
 	public int compareTo(Individuo individuo) {
 		//if(this.fitness == individuo.fitness) {
-		//	return this.getNumeroNodos()-individuo.getNumeroNodos();
+			//return this.getNumeroNodos()-individuo.getNumeroNodos();
 		//}
 		
 		return ((int) (this.fitness-individuo.fitness));

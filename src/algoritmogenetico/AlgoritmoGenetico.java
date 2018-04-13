@@ -28,7 +28,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private List<Funcion> funciones;
 	private List<IIndividuo> individuos;
 	private final static int nIndividuos = 100;
-	private final static int maxGeneraciones = 300;
+	private final static int maxGeneraciones = 10;
 	private final static int profundidadInicial = 2;
 	private final static int elitismo = 10;
 	private static final int kTorneo = 4;
@@ -143,7 +143,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
 		Collections.sort(individuos, new IndividuoSorter());
 		for (int i = 0; i < elitismo; i++) {
-			nuevosIndividuos.add(((Individuo) individuos.get(i)).copy());
+			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i+1))).copy());
 		}
 		Individuo mejorIndividuo = (Individuo) nuevosIndividuos.get(0);
 		bestFitness = mejorIndividuo.getFitness();
@@ -184,7 +184,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			for(int j = 0; j < nIndividuos; j++) {
 				dominio.calcularFitness(individuos.get(j));
 			}
-			//System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
+			System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
 			crearNuevaPoblacion();
 		}
 		

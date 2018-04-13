@@ -48,7 +48,6 @@ public class FuncionMultiplicacion extends Funcion {
 		for (int i = 0; i < getNHijos(); i++) {
 			ret *= descendientes.get(i).calcular();
 		}
-
 		return ret;
 	}
 
