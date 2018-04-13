@@ -13,7 +13,7 @@ import nodos.terminales.Terminal;
  * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
  *         miguel.baquedano@estudiante.uam.es
  */
-public class Individuo implements IIndividuo, Comparable<Individuo>, Comparator<Individuo> {
+public class Individuo implements IIndividuo, Comparable<Individuo>{
 	private INodo expresion;
 	private double fitness;
 	private int numeroNodos;
@@ -98,12 +98,10 @@ public class Individuo implements IIndividuo, Comparable<Individuo>, Comparator<
 	public void crearIndividuoAleatorio(int profundidad, List<Terminal> terminales, List<Funcion> funciones) {
 		Random rand = new Random();
 		int funcionesSize = 0;
-		int terminalesSize = 0;
 		if (profundidad <= 0 || terminales.isEmpty() || funciones.isEmpty()) {
 			return;
 		}
 		funcionesSize = funciones.size();
-		terminalesSize = terminales.size();
 		this.expresion = funciones.get(rand.nextInt(funcionesSize)).copy();
 
 		((Funcion) this.expresion).arbolAleatorio(profundidad, terminales, funciones);
@@ -169,8 +167,8 @@ public class Individuo implements IIndividuo, Comparable<Individuo>, Comparator<
 	@Override
 	public int etiquetar(int etiqueta) {
 		int retornoNNodos;
-		retornoNNodos = expresion.etiquetar(etiqueta);
-		retornoNNodos++;
+		retornoNNodos = expresion.etiquetar(0);
+		//retornoNNodos++;
 		numeroNodos = retornoNNodos;
 
 		return retornoNNodos;
@@ -231,16 +229,10 @@ public class Individuo implements IIndividuo, Comparable<Individuo>, Comparator<
 
 	@Override
 	public int compareTo(Individuo individuo) {
-		if(this.fitness==individuo.fitness) {
+		if(this.fitness == individuo.fitness) {
 			return this.getNumeroNodos()-individuo.getNumeroNodos();
 		}
 		
-		return (int) (this.fitness-individuo.fitness);
+		return ((int) (this.fitness-individuo.fitness));
 	}
-
-	@Override
-	public int compare(Individuo arg0, Individuo arg1) {
-		return arg0.compareTo(arg1);
-	}
-
 }

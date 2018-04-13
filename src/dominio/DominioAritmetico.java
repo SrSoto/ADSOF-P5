@@ -108,9 +108,11 @@ public class DominioAritmetico extends Dominio {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
 			if (Math.abs(valor - valoresPrueba.get(d))<=margen) {
-				fitness++;
+				fitness = fitness + 1;
 			}
 		}
+		System.out.println("Fitness en calcularFitness: " + fitness);
+		individuo.setFitness(fitness);
 		return fitness;
 	}
 

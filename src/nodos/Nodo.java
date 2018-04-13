@@ -102,20 +102,14 @@ public abstract class Nodo implements INodo {
 	 */
 	@Override
 	public IEtiquetable buscarPorEtiqueta(int etiqueta) {
-		System.out.println(etiqueta + " == " + this.etiqueta + "?");
 		if (etiqueta == this.etiqueta) {
-			System.out.println("Encontrado! " + this);
 			return this;
 		}
 		for (int i = 1; i < descendientes.size(); i++) {
-			System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": "
-					+ ((Nodo) descendientes.get(i)).etiqueta);
 			if (etiqueta < ((Nodo) descendientes.get(i)).etiqueta) {
-				System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
 				return descendientes.get(i - 1).buscarPorEtiqueta(etiqueta);
 			}
 		}
-		System.out.println("Buscaremos en el nodo: " + descendientes.get(descendientes.size() - 1));
 		return descendientes.get(descendientes.size() - 1).buscarPorEtiqueta(etiqueta);
 	}
 
@@ -130,29 +124,22 @@ public abstract class Nodo implements INodo {
 	@Override
 	public void reemplazar(int etiqueta, IEtiquetable sustituto) {
 		for (int i = 0; i < descendientes.size(); i++) {
-			// System.out.println("Etiqueta del posible nodo " + descendientes.get(i) + ": "
-			// + ((Nodo)descendientes.get(i)).etiqueta);
 			Nodo descendiente = (Nodo) descendientes.get(i);
-			System.out.println(etiqueta + " == " + descendiente.etiqueta + "?");
 			if (etiqueta == descendiente.etiqueta) {
 				Nodo swap = (Nodo) ((Nodo) sustituto).copy();
-				System.out.println("Encontrado! " + this + " <--> " + swap);
 				this.getDescendientes().remove(i);
 				this.getDescendientes().add(i, swap);
 				return;
 			}
 			if (etiqueta < descendiente.etiqueta) {
-				// System.out.println("Buscaremos en el nodo: " + descendientes.get(i - 1));
 				descendientes.get(i - 1).reemplazar(etiqueta, sustituto);
 				return;
 			}
 		}
 		int i = descendientes.size() - 1;
 		Nodo descendiente = (Nodo) descendientes.get(i);
-		System.out.println(etiqueta + " == " + descendiente.etiqueta + "?");
 		if (etiqueta == descendiente.etiqueta) {
 			Nodo swap = (Nodo) ((Nodo) sustituto).copy();
-			System.out.println("Encontrado! " + this + " <--> " + swap);
 			this.getDescendientes().remove(i);
 			this.getDescendientes().add(i, swap);
 			return;

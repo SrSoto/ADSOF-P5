@@ -11,6 +11,7 @@ import dominio.DominioAritmetico;
 import dominio.IDominio;
 import individuos.IIndividuo;
 import individuos.Individuo;
+import individuos.IndividuoSorter;
 import nodos.Nodo;
 import nodos.funciones.Funcion;
 import nodos.terminales.Terminal;
@@ -30,7 +31,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private final static int maxGeneraciones = 100;
 	private final static int profundidadInicial = 2;
 	private final static int elitismo = 10;
-	private static final int kTorneo = 0;
+	private static final int kTorneo = 4;
 	private static double bestFitness = 0;
 
 	public static void main(String[] args) throws ArgsDistintosFuncionesException, FileNotFoundException, IOException {
@@ -140,11 +141,12 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Random rand = new Random();
 		List<IIndividuo> nuevosIndividuos = new ArrayList<IIndividuo>();
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
-		Collections.sort(individuos, (a,b) -> ((Individuo) a).compareTo((Individuo) b));;
+		Collections.sort(individuos, new IndividuoSorter());
 		for (int i = 0; i < elitismo; i++) {
 			nuevosIndividuos.add(((Individuo) individuos.get(i)).copy());
 		}
 		Individuo mejorIndividuo = (Individuo) nuevosIndividuos.get(0);
+		System.out.println("Fitness en CNP: " + mejorIndividuo.getFitness());
 		bestFitness = mejorIndividuo.getFitness();
 		mejorIndividuo.writeIndividuo();
 		System.out.println("Fitness: " + bestFitness);
@@ -183,6 +185,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			for(int j = 0; j < nIndividuos; j++) {
 				dominio.calcularFitness(individuos.get(i));
 			}
+			System.out.println("FITNESS EN EJECUTAR: " + individuos.get(10).getFitness());
 			crearNuevaPoblacion();
 		}
 
