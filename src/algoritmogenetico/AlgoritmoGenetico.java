@@ -146,7 +146,6 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			nuevosIndividuos.add(((Individuo) individuos.get(i)).copy());
 		}
 		Individuo mejorIndividuo = (Individuo) nuevosIndividuos.get(0);
-		System.out.println("Fitness en CNP: " + mejorIndividuo.getFitness());
 		bestFitness = mejorIndividuo.getFitness();
 		mejorIndividuo.writeIndividuo();
 		System.out.println("Fitness: " + bestFitness);
@@ -185,7 +184,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			for(int j = 0; j < nIndividuos; j++) {
 				dominio.calcularFitness(individuos.get(j));
 			}
-			System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
+			//System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
 			crearNuevaPoblacion();
 		}
 		
