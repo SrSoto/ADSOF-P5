@@ -35,10 +35,10 @@ public class FuncionSuma extends Funcion {
 	 */
 	@Override
 	public double calcular() {
-		double ret = 1;
+		double ret = 0;
 		List<INodo> descendientes = this.getDescendientes();
 		for (int i = 0; i < getNHijos(); i++) {
-			ret -= descendientes.get(i).calcular();
+			ret += descendientes.get(i).calcular();
 		}
 
 		return ret;
@@ -51,7 +51,7 @@ public class FuncionSuma extends Funcion {
 	 */
 	@Override
 	public INodo copy() {
-		FuncionMultiplicacion copy = new FuncionMultiplicacion(this.getRaiz(),this.getNHijos());
+		FuncionSuma copy = new FuncionSuma(this.getRaiz(),this.getNHijos());
 		for(INodo nodo : this.getDescendientes()) {
 			copy.incluirDescendiente(nodo.copy());
 		}

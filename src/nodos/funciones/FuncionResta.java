@@ -53,7 +53,7 @@ public class FuncionResta extends Funcion {
 	 */
 	@Override
 	public INodo copy() {
-		FuncionMultiplicacion copy = new FuncionMultiplicacion(this.getRaiz(),this.getNHijos());
+		FuncionResta copy = new FuncionResta(this.getRaiz(),this.getNHijos());
 		for(INodo nodo : this.getDescendientes()) {
 			copy.incluirDescendiente(nodo.copy());
 		}

@@ -1,5 +1,7 @@
 package nodos.terminales;
 
+import nodos.INodo;
+
 /**
  * Clase que implementa el nodo hoja aritmetico para los arboles de la
  * representacion de un individuo de nuestro algoritmo genetico
@@ -31,6 +33,22 @@ public class TerminalAritmetico extends Terminal {
 	 */
 	public static double getValor() {
 		return valor;
+	}
+
+	@Override
+	public double calcular() {
+		// TODO Auto-generated method stub
+		return valor;
+	}
+
+	/**
+	 * Realiza una copia del nodo.
+	 * 
+	 * @return una copia del nodo.
+	 */
+	public INodo copy() {
+		TerminalAritmetico copy = new TerminalAritmetico(this.getRaiz());
+		return copy;
 	}
 
 }

@@ -35,6 +35,12 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 		this.expresion = expresion.copy();
 		numeroNodos = this.etiquetaNodos() + 1;
 	}
+	
+	public Individuo(INodo expresion, double fitness) {
+		this.expresion = expresion.copy();
+		numeroNodos = this.etiquetaNodos() + 1;
+		this.fitness = fitness;
+	}
 
 	/**
 	 * Devuelve un Nodo que representa la raíz, es decir, el Nodo inicial del
@@ -81,6 +87,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 	@Override
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
+		//System.out.println("fitness en setFitness " + this.fitness);
 	}
 
 	/**
@@ -204,8 +211,8 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 	 * @return Copia del individuo.
 	 */
 	public Individuo copy() {
-		Individuo copia = new Individuo(this.expresion);
-		copia.fitness = this.fitness;
+		Individuo copia = new Individuo(this.expresion,fitness);
+		//copia.fitness = this.fitness;
 		return copia;
 	}
 
@@ -229,9 +236,9 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 
 	@Override
 	public int compareTo(Individuo individuo) {
-		if(this.fitness == individuo.fitness) {
-			return this.getNumeroNodos()-individuo.getNumeroNodos();
-		}
+		//if(this.fitness == individuo.fitness) {
+		//	return this.getNumeroNodos()-individuo.getNumeroNodos();
+		//}
 		
 		return ((int) (this.fitness-individuo.fitness));
 	}

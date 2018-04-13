@@ -17,7 +17,7 @@ import nodos.terminales.TerminalAritmetico;
  *
  */
 public class DominioAritmetico extends Dominio {
-	private static final double margen = 1;
+	private static final double margen = 0;
 	private HashMap<Double, Double> valoresPrueba = new HashMap<Double, Double>();
 
 	/**
@@ -25,8 +25,7 @@ public class DominioAritmetico extends Dominio {
 	 * 
 	 * @param String...
 	 *            conjunto de simbolos de los terminales a añadir
-	 * @return List<Terminal> 
-	 * 			  devuelve la lista de terminales añadidos
+	 * @return List<Terminal> devuelve la lista de terminales añadidos
 	 */
 	public List<Terminal> definirConjuntoTerminales(String... terminales) {
 		List<Terminal> retorno = new ArrayList<Terminal>();
@@ -85,8 +84,8 @@ public class DominioAritmetico extends Dominio {
 		}
 		buffer.close();
 	}
-	
-	public double fitnessObjetivo(){
+
+	public double fitnessObjetivo() {
 		return valoresPrueba.keySet().size();
 	}
 
@@ -101,17 +100,17 @@ public class DominioAritmetico extends Dominio {
 	 */
 	@Override
 	public double calcularFitness(IIndividuo individuo) {
-		double fitness = 0;
+		int fitness = 0;
 		double valor;
 		Set<Double> valores = valoresPrueba.keySet();
 		for (Double d : valores) {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
-			if (Math.abs(valor - valoresPrueba.get(d))<=margen) {
-				fitness = fitness + 1;
+			if(valor == this.valoresPrueba.get(d)) {
+				fitness++;
 			}
 		}
-		System.out.println("Fitness en calcularFitness: " + fitness);
+		// System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
 		return fitness;
 	}
