@@ -27,11 +27,11 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private List<Terminal> terminales;
 	private List<Funcion> funciones;
 	private List<IIndividuo> individuos;
-	private final static int nIndividuos = 80;
+	private final static int nIndividuos = 100;
 	private final static int maxGeneraciones = 5000;
-	private final static int profundidadInicial = 4;
-	private final static int elitismo = 2;
-	private static final int kTorneo = 6;
+	private final static int profundidadInicial = 3;
+	private final static int elitismo = 8;
+	private static final int kTorneo = 8;
 	private static double bestFitness = 0;
 
 	public static void main(String[] args) throws ArgsDistintosFuncionesException, FileNotFoundException, IOException {
@@ -144,21 +144,26 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Collections.sort(individuos, new IndividuoSorter());
 		Individuo mejorIndividuo = (Individuo) individuos.get(0);
 		bestFitness = mejorIndividuo.getFitness();
+
+		System.out.println("Mejor individuo: ");
 		mejorIndividuo.writeIndividuo();
 		System.out.println("Fitness: " + bestFitness);
+		
 		//System.out.println("Peor individuo:");
 		//Individuo peorIndividuo = (Individuo) individuos.get(nIndividuos-1);
 		//System.out.println("Fitness: " + peorIndividuo.getFitness());
 		//peorIndividuo.writeIndividuo();
+		
 		for (int i = 0; i < elitismo; i++) {
 			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i + 1))).copy());
 		}
 
 		for (int i = elitismo; i < nIndividuos; i += 2) {
+			torneo.clear();
 			for (int j = 0; j < kTorneo; j++) {
 				torneo.add(((Individuo) individuos.get(rand.nextInt(nIndividuos))).copy());
 			}
-			Collections.sort(torneo, null);
+			Collections.sort(torneo, new IndividuoSorter());
 			Individuo prog1 = (Individuo) torneo.get(0);
 			Individuo prog2 = (Individuo) torneo.get(1);
 			try {
@@ -185,7 +190,6 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		int i;
 		for (i = 0; bestFitness < fitnessObjetivo && i < maxGeneraciones; i++) {
 			System.out.println("Generacion " + i);
-			System.out.println("Mejor individuo: ");
 			for (int j = 0; j < nIndividuos; j++) {
 				dominio.calcularFitness(individuos.get(j));
 				// if(individuos.get(j).getFitness()>bestFitness) {

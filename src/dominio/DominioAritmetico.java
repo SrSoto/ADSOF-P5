@@ -17,7 +17,7 @@ import nodos.terminales.TerminalAritmetico;
  *
  */
 public class DominioAritmetico extends Dominio {
-	private static final double margen = 1;
+	private static final double margen = 0;
 	private TreeMap<Double, Double> valoresPrueba = new TreeMap<Double, Double>();
 
 	/**
@@ -112,9 +112,9 @@ public class DominioAritmetico extends Dominio {
 			valor = individuo.calcularExpresion();
 			if (Math.abs(valor - this.valoresPrueba.get(d).doubleValue()) <= margen) {
 				fitness++;
+				//fitness+=d.doubleValue();
 			}
-			//System.out.println(
-				//	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
+			//System.out.println(	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
 		}
 		// System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
