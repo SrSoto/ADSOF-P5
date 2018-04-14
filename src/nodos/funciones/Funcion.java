@@ -70,6 +70,16 @@ public abstract class Funcion extends Nodo {
 		return ret + descendientes.get(nHijos - 1) + ")";
 	}
 
+	/**
+	 * Construye un arbol aleatorio de profundidad dada.
+	 * 
+	 * @param profundidad
+	 *            Hasta qué profundidad llamar a esta funcion recursivamente
+	 * @param terminales
+	 *            Lista de posibles terminales
+	 * @param funciones
+	 *            Lista de posible funciones.
+	 */
 	public void arbolAleatorio(int profundidad, List<Terminal> terminales, List<Funcion> funciones) {
 		Random rand = new Random();
 		int funcionesSize = funciones.size();
@@ -78,15 +88,15 @@ public abstract class Funcion extends Nodo {
 		if (profundidad == 0) {
 			return;
 		} else if (profundidad == 1) {
-			for(int i = 0; i<this.nHijos; i++) {
+			for (int i = 0; i < this.nHijos; i++) {
 				this.incluirDescendiente(terminales.get(rand.nextInt(terminalesSize)));
 			}
 		} else {
-			for(int i = 0;i<nHijos; i++) {
-			this.incluirDescendiente(funciones.get(rand.nextInt(funcionesSize)));
+			for (int i = 0; i < nHijos; i++) {
+				this.incluirDescendiente(funciones.get(rand.nextInt(funcionesSize)));
 			}
-			for(INodo descendiente: this.getDescendientes()) {
-				((Funcion) descendiente).arbolAleatorio(profundidad-1, terminales, funciones);
+			for (INodo descendiente : this.getDescendientes()) {
+				((Funcion) descendiente).arbolAleatorio(profundidad - 1, terminales, funciones);
 			}
 		}
 		return;

@@ -13,19 +13,26 @@ import nodos.INodo;
 public class TerminalAritmetico extends Terminal {
 	private static double valor;
 
+	/**
+	 * Constructor del terminal aritmetico
+	 * 
+	 * @param simbolo
+	 *            String que representa el nodo.
+	 */
 	public TerminalAritmetico(String simbolo) {
 		super(simbolo);
 	}
-	
+
 	/**
 	 * Asigna el valor del nodo hoja
 	 * 
-	 * @param double valor del nodo hoja
+	 * @param double
+	 *            valor del nodo hoja
 	 */
 	public static void setValor(double v) {
-		valor=v;
+		valor = v;
 	}
-	
+
 	/**
 	 * Devuelve el valor del nodo hoja
 	 * 
@@ -35,6 +42,12 @@ public class TerminalAritmetico extends Terminal {
 		return valor;
 	}
 
+	/**
+	 * Calcula el valor del nodo. En un terminal aritmético básicamente devuelve el
+	 * valor que toma la x.
+	 * 
+	 * @return doble con el valor que toma la x.
+	 */
 	@Override
 	public double calcular() {
 		return valor;

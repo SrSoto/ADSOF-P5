@@ -13,7 +13,7 @@ import nodos.terminales.Terminal;
  * @author Manuel Soto manuel.sotoj@estudiante.uam.es Miguel Baquedano
  *         miguel.baquedano@estudiante.uam.es
  */
-public class Individuo implements IIndividuo, Comparable<Individuo>{
+public class Individuo implements IIndividuo, Comparable<Individuo> {
 	private INodo expresion;
 	private double fitness;
 	private int numeroNodos;
@@ -35,7 +35,15 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 		this.expresion = expresion.copy();
 		numeroNodos = this.etiquetaNodos() + 1;
 	}
-	
+
+	/**
+	 * Constructor sobrecargado de individuo.
+	 * 
+	 * @param expresion
+	 *            Nodo que representa la raíz del arbol del individuo.
+	 * @param fitness
+	 *            Valor de fitness del individuo.
+	 */
 	public Individuo(INodo expresion, double fitness) {
 		this.expresion = expresion.copy();
 		numeroNodos = this.etiquetaNodos() + 1;
@@ -87,7 +95,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 	@Override
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
-		//System.out.println("fitness en setFitness " + this.fitness);
+		// System.out.println("fitness en setFitness " + this.fitness);
 	}
 
 	/**
@@ -175,7 +183,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 	public int etiquetar(int etiqueta) {
 		int retornoNNodos;
 		retornoNNodos = expresion.etiquetar(0);
-		//retornoNNodos++;
+		// retornoNNodos++;
 		numeroNodos = retornoNNodos;
 
 		return retornoNNodos;
@@ -208,11 +216,12 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 
 	/**
 	 * Devuelve una copia del individuo.
+	 * 
 	 * @return Copia del individuo.
 	 */
 	public Individuo copy() {
-		Individuo copia = new Individuo(this.expresion,fitness);
-		//copia.fitness = this.fitness;
+		Individuo copia = new Individuo(this.expresion, fitness);
+		// copia.fitness = this.fitness;
 		return copia;
 	}
 
@@ -234,12 +243,20 @@ public class Individuo implements IIndividuo, Comparable<Individuo>{
 		this.etiquetaNodos();
 	}
 
+	/**
+	 * Compara dos individuos en funcion de su fitness y su numero de nodos.
+	 * 
+	 * @param individuo
+	 *            el otro individuo con el que se compara.
+	 */
 	@Override
 	public int compareTo(Individuo individuo) {
-		//if(this.fitness == individuo.fitness) {
-			//return this.getNumeroNodos()-individuo.getNumeroNodos();
-		//}
-		
-		return ((int) (this.fitness-individuo.fitness));
+		/*if (this.fitness == individuo.fitness) {
+			if (this.fitness > 2) {
+				return this.getNumeroNodos() - individuo.getNumeroNodos();
+			}
+		}*/
+
+		return ((int) (individuo.fitness - this.fitness));
 	}
 }

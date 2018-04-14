@@ -17,8 +17,8 @@ import nodos.terminales.TerminalAritmetico;
  *
  */
 public class DominioAritmetico extends Dominio {
-	private static final double margen = 0;
-	private HashMap<Double, Double> valoresPrueba = new HashMap<Double, Double>();
+	private static final double margen = 1;
+	private TreeMap<Double, Double> valoresPrueba = new TreeMap<Double, Double>();
 
 	/**
 	 * Devuelve el conjunto de terminales a partir de la lista de sus simbolos
@@ -85,6 +85,10 @@ public class DominioAritmetico extends Dominio {
 		buffer.close();
 	}
 
+	/**
+	 * Devuelve el fitness objetivo del algoritmo genético, que consiste para un
+	 * dominio aritmetico en el numero de valores a acertar.
+	 */
 	public double fitnessObjetivo() {
 		return valoresPrueba.keySet().size();
 	}
@@ -106,12 +110,13 @@ public class DominioAritmetico extends Dominio {
 		for (Double d : valores) {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
-			if(Math.abs(valor - this.valoresPrueba.get(d)) <= margen) {
+			if (Math.abs(valor - this.valoresPrueba.get(d).doubleValue()) <= margen) {
 				fitness++;
 			}
-			//System.out.println("Valor " + d +"<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
+			//System.out.println(
+				//	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
 		}
-		 System.out.println("Fitness en calcularFitness: " + fitness);
+		// System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
 		return fitness;
 	}

@@ -27,20 +27,20 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private List<Terminal> terminales;
 	private List<Funcion> funciones;
 	private List<IIndividuo> individuos;
-	private final static int nIndividuos = 100;
-	private final static int maxGeneraciones = 10;
-	private final static int profundidadInicial = 2;
-	private final static int elitismo = 10;
-	private static final int kTorneo = 4;
+	private final static int nIndividuos = 80;
+	private final static int maxGeneraciones = 5000;
+	private final static int profundidadInicial = 4;
+	private final static int elitismo = 2;
+	private static final int kTorneo = 6;
 	private static double bestFitness = 0;
 
 	public static void main(String[] args) throws ArgsDistintosFuncionesException, FileNotFoundException, IOException {
 		Dominio dominio = new DominioAritmetico();
-		int[] argumentos = {2,2,2};
-		String[] funciones = new String[]{"+","*","-"};
+		int[] argumentos = { 2, 2, 2 };
+		String[] funciones = new String[] { "+", "*", "-" };
 		dominio.definirValoresPrueba("valores.txt");
 		AlgoritmoGenetico polinomios = new AlgoritmoGenetico();
-		polinomios.defineConjuntoTerminales(dominio.definirConjuntoTerminales("x"));		
+		polinomios.defineConjuntoTerminales(dominio.definirConjuntoTerminales("x"));
 		polinomios.defineConjuntoFunciones(dominio.definirConjuntoFunciones(argumentos, funciones));
 		polinomios.ejecutar(dominio);
 	}
@@ -111,8 +111,8 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			throw new CruceNuloException();
 		}
 
-		//System.out.println("Punto de cruce del progenitor 1: " + etiqueta1);
-		//System.out.println("Punto de cruce del progenitor 2: " + etiqueta2);
+		// System.out.println("Punto de cruce del progenitor 1: " + etiqueta1);
+		// System.out.println("Punto de cruce del progenitor 2: " + etiqueta2);
 
 		Nodo nodo1 = (Nodo) ((Individuo) prog1).buscarPorEtiqueta(etiqueta1);
 		Nodo nodo2 = (Nodo) ((Individuo) prog2).buscarPorEtiqueta(etiqueta2);
@@ -122,10 +122,10 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		copia1.reemplazar(etiqueta1, nodo2);
 		copia2.reemplazar(etiqueta2, nodo1);
 
-		//System.out.println("\nDESCENDIENTE 1 (Prueba Cruce)");
-		//copia1.writeIndividuo();
-		//System.out.println("DESCENDIENTE 2 (Prueba Cruce)");
-		//copia2.writeIndividuo();
+		// System.out.println("\nDESCENDIENTE 1 (Prueba Cruce)");
+		// copia1.writeIndividuo();
+		// System.out.println("DESCENDIENTE 2 (Prueba Cruce)");
+		// copia2.writeIndividuo();
 
 		retorno.add(copia1);
 		retorno.add(copia2);
@@ -142,14 +142,19 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		List<IIndividuo> nuevosIndividuos = new ArrayList<IIndividuo>();
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
 		Collections.sort(individuos, new IndividuoSorter());
-		for (int i = 0; i < elitismo; i++) {
-			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i+1))).copy());
-		}
-		Individuo mejorIndividuo = (Individuo) nuevosIndividuos.get(0);
+		Individuo mejorIndividuo = (Individuo) individuos.get(0);
 		bestFitness = mejorIndividuo.getFitness();
 		mejorIndividuo.writeIndividuo();
 		System.out.println("Fitness: " + bestFitness);
-		for (int i = elitismo; i < nIndividuos; i+=2) {
+		//System.out.println("Peor individuo:");
+		//Individuo peorIndividuo = (Individuo) individuos.get(nIndividuos-1);
+		//System.out.println("Fitness: " + peorIndividuo.getFitness());
+		//peorIndividuo.writeIndividuo();
+		for (int i = 0; i < elitismo; i++) {
+			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i + 1))).copy());
+		}
+
+		for (int i = elitismo; i < nIndividuos; i += 2) {
 			for (int j = 0; j < kTorneo; j++) {
 				torneo.add(((Individuo) individuos.get(rand.nextInt(nIndividuos))).copy());
 			}
@@ -176,19 +181,22 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	public void ejecutar(IDominio dominio) {
 		double fitnessObjetivo = dominio.fitnessObjetivo();
 		crearPoblacion();
-		
+
 		int i;
-		for(i = 0;bestFitness<fitnessObjetivo && i<maxGeneraciones;i++) {
+		for (i = 0; bestFitness < fitnessObjetivo && i < maxGeneraciones; i++) {
 			System.out.println("Generacion " + i);
 			System.out.println("Mejor individuo: ");
-			for(int j = 0; j < nIndividuos; j++) {
+			for (int j = 0; j < nIndividuos; j++) {
 				dominio.calcularFitness(individuos.get(j));
+				// if(individuos.get(j).getFitness()>bestFitness) {
+				// System.out.println("ESTO ESTA MAL...");
+				// }
 			}
-			System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
+			// System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
 			crearNuevaPoblacion();
 		}
-		
-		if(i==maxGeneraciones) {
+
+		if (i == maxGeneraciones) {
 			System.out.println("Se ha alcanzado el maximo de iteraciones: fin del programa.");
 		} else {
 			System.out.println("¡FIN DEL PROGRAMA!");

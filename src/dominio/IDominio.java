@@ -54,14 +54,21 @@ public interface IDominio {
 	 *             En caso de excepción de entrada/salida.
 	 */
 	public void definirValoresPrueba(String ficheroDatos) throws FileNotFoundException, IOException;
-	
+
+	/**
+	 * Devuelve el fitness objetivo del dominio, es decir, el objetivo que una vez
+	 * alcanzado detiene el algoritmo.
+	 * 
+	 * @return doble con el valor de fitness máximo.
+	 */
 	public double fitnessObjetivo();
 
 	/**
 	 * Calcula el fitness de un individuo dado, a partir de los valores de prueba
 	 * obtenidos previamente.
 	 * 
-	 * @param individuo El individuo a evaluar.
+	 * @param individuo
+	 *            El individuo a evaluar.
 	 * @return double con el fitness correspondiente al individuo.
 	 */
 	public double calcularFitness(IIndividuo individuo);
