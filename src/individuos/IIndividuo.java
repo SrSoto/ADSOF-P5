@@ -87,4 +87,6 @@ public interface IIndividuo extends IEtiquetable {
 	 * @return int con la última etiqueta establecida.
 	 */
 	int etiquetaNodos();
+
+	public boolean calcularExpresionBooleana();
 }

@@ -101,5 +101,9 @@ public abstract class Funcion extends Nodo {
 		}
 		return;
 	}
+	
+	public boolean calcularBooleano() {
+		return false;
+	}
 
 }

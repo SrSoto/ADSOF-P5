@@ -5,6 +5,7 @@ import java.util.*;
 import cruces.IEtiquetable;
 import nodos.INodo;
 import nodos.funciones.Funcion;
+import nodos.funciones.booleanas.FuncionBooleana;
 import nodos.terminales.Terminal;
 
 /**
@@ -14,6 +15,7 @@ import nodos.terminales.Terminal;
  *         miguel.baquedano@estudiante.uam.es
  */
 public class Individuo implements IIndividuo, Comparable<Individuo> {
+	private static double minFitness;
 	private INodo expresion;
 	private double fitness;
 	private int numeroNodos;
@@ -49,6 +51,11 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 		numeroNodos = this.etiquetaNodos() + 1;
 		this.fitness = fitness;
 	}
+	
+	public static void setMinFitness(int minFitness) {
+		Individuo.minFitness=minFitness;
+	}
+	
 
 	/**
 	 * Devuelve un Nodo que representa la raíz, es decir, el Nodo inicial del
@@ -131,6 +138,11 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	@Override
 	public double calcularExpresion() {
 		return this.expresion.calcular();
+	}
+	
+
+	public boolean calcularExpresionBooleana() {
+		return this.expresion.calcularBooleano();
 	}
 
 	/**
@@ -252,7 +264,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	@Override
 	public int compareTo(Individuo individuo) {
 		if (this.fitness == individuo.fitness) {
-			if (this.fitness > 2) {
+			if (this.fitness > minFitness) {
 				return this.getNumeroNodos() - individuo.getNumeroNodos();
 			}
 		}

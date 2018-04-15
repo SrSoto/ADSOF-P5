@@ -63,4 +63,9 @@ public class TerminalAritmetico extends Terminal {
 		return copy;
 	}
 
+	@Override
+	public boolean calcularBooleano() {
+		return false;
+	}
+
 }

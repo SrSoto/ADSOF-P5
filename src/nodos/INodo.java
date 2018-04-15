@@ -45,10 +45,13 @@ public interface INodo extends IEtiquetable{
 	 */
 	public double calcular();
 
+
 	/**
 	 * Realiza una copia del nodo.
 	 * 
 	 * @return una copia del nodo.
 	 */
 	public INodo copy();
+
+	public boolean calcularBooleano();
 }

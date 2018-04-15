@@ -27,21 +27,30 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private List<Terminal> terminales;
 	private List<Funcion> funciones;
 	private List<IIndividuo> individuos;
-	private final static int nIndividuos = 500;
-	private final static int maxGeneraciones = 5000;
-	private final static int profundidadInicial = 3;
-	private final static int elitismo = 50;
-	private static final int kTorneo = 8;
+	private static int nIndividuos;
+	private static int maxGeneraciones;
+	private static int profundidadInicial;
+	private static int elitismo;
+	private static int kTorneo;
 	private static double bestFitness = 0;
+	
+	public AlgoritmoGenetico(int nIndividuos, int maxGeneraciones, int profundidadInicial, int elitismo, int kTorneo) {
+		AlgoritmoGenetico.nIndividuos = nIndividuos;
+		AlgoritmoGenetico.maxGeneraciones = maxGeneraciones;
+		AlgoritmoGenetico.profundidadInicial = profundidadInicial;
+		AlgoritmoGenetico.elitismo = elitismo;
+		AlgoritmoGenetico.kTorneo = kTorneo;
+	}
 
 	public static void main(String[] args) throws ArgsDistintosFuncionesException, FileNotFoundException, IOException {
 		Dominio dominio = new DominioAritmetico();
 		int[] argumentos = { 2, 2, 2 };
 		String[] funciones = new String[] { "+", "*", "-" };
 		dominio.definirValoresPrueba("valores.txt");
-		AlgoritmoGenetico polinomios = new AlgoritmoGenetico();
+		AlgoritmoGenetico polinomios = new AlgoritmoGenetico(500,5000,3,50,8);
 		polinomios.defineConjuntoTerminales(dominio.definirConjuntoTerminales("x"));
 		polinomios.defineConjuntoFunciones(dominio.definirConjuntoFunciones(argumentos, funciones));
+		Individuo.setMinFitness(2);
 		polinomios.ejecutar(dominio);
 	}
 
@@ -154,11 +163,6 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Random rand = new Random();
 		List<IIndividuo> nuevosIndividuos = new ArrayList<IIndividuo>();
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
-
-		// System.out.println("Peor individuo:");
-		// Individuo peorIndividuo = (Individuo) individuos.get(nIndividuos-1);
-		// System.out.println("Fitness: " + peorIndividuo.getFitness());
-		// peorIndividuo.writeIndividuo();
 
 		for (int i = 0; i < elitismo; i++) {
 			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i + 1))).copy());
