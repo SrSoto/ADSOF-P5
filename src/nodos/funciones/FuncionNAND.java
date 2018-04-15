@@ -4,6 +4,10 @@ import nodos.INodo;
 
 public class FuncionNAND extends Funcion {
 
+	public FuncionNAND(String raiz, int nHijos) {
+		super(raiz, nHijos);
+	}
+	
 	@Override
 	public double calcular() {
 		// TODO Auto-generated method stub
