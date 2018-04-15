@@ -120,5 +120,23 @@ public class DominioAritmetico extends Dominio {
 		individuo.setFitness(fitness);
 		return fitness;
 	}
+	
+	public double calcularFitnessDebug(IIndividuo individuo) {
+		int fitness = 0;
+		double valor;
+		Set<Double> valores = valoresPrueba.keySet();
+		for (Double d : valores) {
+			TerminalAritmetico.setValor(d);
+			valor = individuo.calcularExpresion();
+			if (Math.abs(valor - this.valoresPrueba.get(d).doubleValue()) <= margen) {
+				fitness++;
+				//fitness+=d.doubleValue();
+			}
+			System.out.println(	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
+		}
+		// System.out.println("Fitness en calcularFitness: " + fitness);
+		individuo.setFitness(fitness);
+		return fitness;
+	}
 
 }

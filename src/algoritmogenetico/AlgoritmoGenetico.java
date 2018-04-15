@@ -203,6 +203,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		if (i == maxGeneraciones) {
 			System.out.println("Se ha alcanzado el maximo de iteraciones: fin del programa.");
 		} else {
+			dominio.calcularFitnessDebug(individuos.get(0));
 			System.out.println("¡FIN DEL PROGRAMA!");
 		}
 

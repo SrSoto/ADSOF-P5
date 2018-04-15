@@ -72,4 +72,6 @@ public interface IDominio {
 	 * @return double con el fitness correspondiente al individuo.
 	 */
 	public double calcularFitness(IIndividuo individuo);
+
+	public double calcularFitnessDebug(IIndividuo iIndividuo);
 }
