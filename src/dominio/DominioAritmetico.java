@@ -53,13 +53,13 @@ public class DominioAritmetico extends Dominio {
 		}
 		for (int i = 0; i < funciones.length; i++) {
 			switch (funciones[i]) {
-			case ("*"): {
+			case "*": {
 				ret.add(new FuncionMultiplicacion(funciones[i], argumentos[i]));
 			}
-			case ("+"): {
+			case "+": {
 				ret.add(new FuncionSuma(funciones[i], argumentos[i]));
 			}
-			case ("-"): {
+			case "-": {
 				ret.add(new FuncionResta(funciones[i], argumentos[i]));
 			}
 			}

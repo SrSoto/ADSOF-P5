@@ -27,10 +27,10 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private List<Terminal> terminales;
 	private List<Funcion> funciones;
 	private List<IIndividuo> individuos;
-	private final static int nIndividuos = 100;
+	private final static int nIndividuos = 500;
 	private final static int maxGeneraciones = 5000;
 	private final static int profundidadInicial = 3;
-	private final static int elitismo = 8;
+	private final static int elitismo = 50;
 	private static final int kTorneo = 8;
 	private static double bestFitness = 0;
 
@@ -133,6 +133,19 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		return retorno;
 	}
 
+	void evaluarPoblacion(IDominio dominio) {
+		for (int j = 0; j < nIndividuos; j++) {
+			dominio.calcularFitness(individuos.get(j));
+		}
+		Collections.sort(individuos, new IndividuoSorter());
+		Individuo mejorIndividuo = (Individuo) individuos.get(0);
+		bestFitness = mejorIndividuo.getFitness();
+
+		System.out.println("Mejor individuo: ");
+		mejorIndividuo.writeIndividuo();
+		System.out.println("Fitness: " + bestFitness);
+	}
+
 	/**
 	 * Crea una nueva población a partir de la anterior.
 	 */
@@ -141,19 +154,12 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Random rand = new Random();
 		List<IIndividuo> nuevosIndividuos = new ArrayList<IIndividuo>();
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
-		Collections.sort(individuos, new IndividuoSorter());
-		Individuo mejorIndividuo = (Individuo) individuos.get(0);
-		bestFitness = mejorIndividuo.getFitness();
 
-		System.out.println("Mejor individuo: ");
-		mejorIndividuo.writeIndividuo();
-		System.out.println("Fitness: " + bestFitness);
-		
-		//System.out.println("Peor individuo:");
-		//Individuo peorIndividuo = (Individuo) individuos.get(nIndividuos-1);
-		//System.out.println("Fitness: " + peorIndividuo.getFitness());
-		//peorIndividuo.writeIndividuo();
-		
+		// System.out.println("Peor individuo:");
+		// Individuo peorIndividuo = (Individuo) individuos.get(nIndividuos-1);
+		// System.out.println("Fitness: " + peorIndividuo.getFitness());
+		// peorIndividuo.writeIndividuo();
+
 		for (int i = 0; i < elitismo; i++) {
 			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i + 1))).copy());
 		}
@@ -188,15 +194,12 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		crearPoblacion();
 
 		int i;
-		for (i = 0; bestFitness < fitnessObjetivo && i < maxGeneraciones; i++) {
+		for (i = 0; i < maxGeneraciones; i++) {
 			System.out.println("Generacion " + i);
-			for (int j = 0; j < nIndividuos; j++) {
-				dominio.calcularFitness(individuos.get(j));
-				// if(individuos.get(j).getFitness()>bestFitness) {
-				// System.out.println("ESTO ESTA MAL...");
-				// }
+			evaluarPoblacion(dominio);
+			if (bestFitness == fitnessObjetivo) {
+				break;
 			}
-			// System.out.println("FITNESS EN EJECUTAR: " + individuos.get(0).getFitness());
 			crearNuevaPoblacion();
 		}
 
@@ -204,6 +207,7 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 			System.out.println("Se ha alcanzado el maximo de iteraciones: fin del programa.");
 		} else {
 			dominio.calcularFitnessDebug(individuos.get(0));
+
 			System.out.println("¡FIN DEL PROGRAMA!");
 		}
 

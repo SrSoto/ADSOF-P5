@@ -58,9 +58,9 @@ public class FuncionMultiplicacion extends Funcion {
 	 */
 	@Override
 	public INodo copy() {
-		FuncionMultiplicacion copy = new FuncionMultiplicacion(this.getRaiz(),this.getNHijos());
+		FuncionMultiplicacion copy = new FuncionMultiplicacion("*",this.getNHijos());
 		for(INodo nodo : this.getDescendientes()) {
-			copy.incluirDescendiente(nodo.copy());
+			copy.incluirDescendiente(nodo);
 		}
 		return copy;
 	}
