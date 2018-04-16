@@ -16,7 +16,7 @@ import nodos.terminales.TerminalAritmetico;
  *         miguel.baquedano@estudiante.uam.es
  *
  */
-public class DominioAritmetico extends Dominio {
+public class DominioAritmetico implements IDominio {
 	private static final double margen = 0;
 	private TreeMap<Double, Double> valoresPrueba = new TreeMap<Double, Double>();
 
@@ -29,6 +29,7 @@ public class DominioAritmetico extends Dominio {
 	 */
 	public List<Terminal> definirConjuntoTerminales(String... terminales) {
 		List<Terminal> retorno = new ArrayList<Terminal>();
+		// De cada simbolo de terminal creamos uno nuevo.
 		for (String terminal : terminales) {
 			retorno.add(new TerminalAritmetico(terminal));
 		}
@@ -51,6 +52,7 @@ public class DominioAritmetico extends Dominio {
 		if (argumentos.length != funciones.length) {
 			throw new ArgsDistintosFuncionesException();
 		}
+		// De cada simbolo de funcion creamos la correspondiente para el dominio.
 		for (int i = 0; i < funciones.length; i++) {
 			switch (funciones[i]) {
 			case "*": {
@@ -90,6 +92,8 @@ public class DominioAritmetico extends Dominio {
 	 * dominio aritmetico en el numero de valores a acertar.
 	 */
 	public double fitnessObjetivo() {
+		// El fitness objetivo es acertar todos los valores, luego es el tamaño del key
+		// set.
 		return valoresPrueba.keySet().size();
 	}
 
@@ -110,18 +114,19 @@ public class DominioAritmetico extends Dominio {
 		for (Double d : valores) {
 			TerminalAritmetico.setValor(d);
 			valor = individuo.calcularExpresion();
+			/*
+			 * Atención a nuestra forma de evaluar la aproximacion al valor que debemos
+			 * obtener: Hemos añadido un margen de error, aunque en nuestro caso sea cero.
+			 */
 			if (Math.abs(valor - this.valoresPrueba.get(d).doubleValue()) <= margen) {
 				fitness++;
-				//fitness+=d.doubleValue();
 			}
-			//System.out.println(	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
 		}
-		// System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
 		return fitness;
 	}
-	
-	public double calcularFitnessDebug(IIndividuo individuo) {
+
+	public double calcularFitnessDetallado(IIndividuo individuo) {
 		int fitness = 0;
 		double valor;
 		Set<Double> valores = valoresPrueba.keySet();
@@ -130,11 +135,15 @@ public class DominioAritmetico extends Dominio {
 			valor = individuo.calcularExpresion();
 			if (Math.abs(valor - this.valoresPrueba.get(d).doubleValue()) <= margen) {
 				fitness++;
-				//fitness+=d.doubleValue();
 			}
-			System.out.println(	"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
+			/*
+			 * En el calculo detallado mostramos el valor de cada resultado estimado y el
+			 * real en función del valor dado. Solo lo utilizamos para mostrar el polinomio
+			 * final.
+			 */
+			System.out.println(
+					"Valor " + d + "<-> Rdo estimado: " + valor + " <-> Rdo real: " + this.valoresPrueba.get(d));
 		}
-		// System.out.println("Fitness en calcularFitness: " + fitness);
 		individuo.setFitness(fitness);
 		return fitness;
 	}

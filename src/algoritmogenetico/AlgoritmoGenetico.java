@@ -1,17 +1,11 @@
 package algoritmogenetico;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import cruces.CruceNuloException;
-import dominio.ArgsDistintosFuncionesException;
-import dominio.Dominio;
-import dominio.DominioAritmetico;
-import dominio.IDominio;
-import individuos.IIndividuo;
-import individuos.Individuo;
-import individuos.IndividuoSorter;
+import dominio.*;
+import individuos.*;
 import nodos.Nodo;
 import nodos.funciones.Funcion;
 import nodos.terminales.Terminal;
@@ -33,7 +27,23 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	private static int elitismo;
 	private static int kTorneo;
 	private static double bestFitness = 0;
-	
+
+	/**
+	 * Constructor del algoritmo genetico.
+	 * 
+	 * @param nIndividuos
+	 *            Número de individuos por generación
+	 * @param maxGeneraciones
+	 *            Máximo de generaciones de la ejecución
+	 * @param profundidadInicial
+	 *            Profundidad de los individuos de la primera poblacion
+	 * @param elitismo
+	 *            Número de individuos que por tener mejor fitness pasarán a la
+	 *            siguiente poblacion directamente.
+	 * @param kTorneo
+	 *            Número de individuos que compiten en cada torneo a la hora de
+	 *            crear una nueva poblacion.
+	 */
 	public AlgoritmoGenetico(int nIndividuos, int maxGeneraciones, int profundidadInicial, int elitismo, int kTorneo) {
 		AlgoritmoGenetico.nIndividuos = nIndividuos;
 		AlgoritmoGenetico.maxGeneraciones = maxGeneraciones;
@@ -43,13 +53,18 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	}
 
 	public static void main(String[] args) throws ArgsDistintosFuncionesException, FileNotFoundException, IOException {
-		Dominio dominio = new DominioAritmetico();
+		DominioAritmetico dominio = new DominioAritmetico();
 		int[] argumentos = { 2, 2, 2 };
 		String[] funciones = new String[] { "+", "*", "-" };
 		dominio.definirValoresPrueba("valores.txt");
-		AlgoritmoGenetico polinomios = new AlgoritmoGenetico(500,5000,3,50,8);
+		/*
+		 * Nuestros parámetros de ejecución se inicializan aquí: nIndividuos,
+		 * maxGeneraciones, profundidadInicial, elitismo y kTorneo.
+		 */
+		AlgoritmoGenetico polinomios = new AlgoritmoGenetico(500, 7000, 3, 50, 8);
 		polinomios.defineConjuntoTerminales(dominio.definirConjuntoTerminales("x"));
 		polinomios.defineConjuntoFunciones(dominio.definirConjuntoFunciones(argumentos, funciones));
+		//Atención al setter de un fitness razonable para premiar a los individuos de menor número de nodos.
 		Individuo.setMinFitness(2);
 		polinomios.ejecutar(dominio);
 	}
@@ -113,28 +128,27 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Random rand = new Random();
 		List<IIndividuo> retorno = new ArrayList<IIndividuo>();
 
+		// Obtenemos aquí los puntos del cruce.
 		int etiqueta1 = rand.nextInt(prog1.getNumeroNodos() - 1);
 		int etiqueta2 = rand.nextInt(prog2.getNumeroNodos() - 1);
 
+		// Si salen la etiqueta raíz de ambos padres, excepción de cruce nulo
 		if (etiqueta1 + etiqueta2 == 0) {
 			throw new CruceNuloException();
 		}
 
-		// System.out.println("Punto de cruce del progenitor 1: " + etiqueta1);
-		// System.out.println("Punto de cruce del progenitor 2: " + etiqueta2);
-
+		// Obtenemos los nodos de cada punto de cruce.
 		Nodo nodo1 = (Nodo) ((Individuo) prog1).buscarPorEtiqueta(etiqueta1);
 		Nodo nodo2 = (Nodo) ((Individuo) prog2).buscarPorEtiqueta(etiqueta2);
+		/*
+		 * Creamos las copias de los progenitores, que tras reemplazar los nodos según
+		 * el cruce serán los nuevos hijos
+		 */
 		Individuo copia1 = ((Individuo) prog1).copy();
 		Individuo copia2 = ((Individuo) prog2).copy();
 
 		copia1.reemplazar(etiqueta1, nodo2);
 		copia2.reemplazar(etiqueta2, nodo1);
-
-		// System.out.println("\nDESCENDIENTE 1 (Prueba Cruce)");
-		// copia1.writeIndividuo();
-		// System.out.println("DESCENDIENTE 2 (Prueba Cruce)");
-		// copia2.writeIndividuo();
 
 		retorno.add(copia1);
 		retorno.add(copia2);
@@ -142,14 +156,28 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		return retorno;
 	}
 
+	/**
+	 * Evalua la poblacion en acorde con un dominio dado.
+	 * 
+	 * @param dominio
+	 *            Dominio del cual se evalua el fitness de cada individuo.
+	 */
 	void evaluarPoblacion(IDominio dominio) {
+		// Calculamos el fitness dado el dominio
 		for (int j = 0; j < nIndividuos; j++) {
 			dominio.calcularFitness(individuos.get(j));
 		}
+		/*
+		 * La lista de individuos queda ordenada mediante individuoSorter de mayor a
+		 * menor fitness. En caso de empate de fitness (tratándose de un fitness
+		 * razonable o (x*x) se apoderaría de la población) se premia al individuo con
+		 * menos nodos.
+		 */
 		Collections.sort(individuos, new IndividuoSorter());
 		Individuo mejorIndividuo = (Individuo) individuos.get(0);
 		bestFitness = mejorIndividuo.getFitness();
-
+		// Mostramos por pantalla los datos del mejor individuo de la población
+		// evaluada.
 		System.out.println("Mejor individuo: ");
 		mejorIndividuo.writeIndividuo();
 		System.out.println("Fitness: " + bestFitness);
@@ -163,17 +191,27 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		Random rand = new Random();
 		List<IIndividuo> nuevosIndividuos = new ArrayList<IIndividuo>();
 		List<IIndividuo> torneo = new ArrayList<IIndividuo>();
-
+		/*
+		 * De los individuos cogemos tantos de mejor fitness como parámetro de elitismo
+		 * hayamos establecido. Estos individuos pasan directamente a la nueva
+		 * población.
+		 */
 		for (int i = 0; i < elitismo; i++) {
 			nuevosIndividuos.add(((Individuo) individuos.get(nIndividuos - (i + 1))).copy());
 		}
-
+		// Este bucle añade los individuos restantes mediante torneo.
 		for (int i = elitismo; i < nIndividuos; i += 2) {
+			// Limpiamos la lista de torneo, no necesitamos los seleccionados anteriormente.
 			torneo.clear();
+			// Elegimos ahora al azar a los individuos que participan (depende del parámetro
+			// kTorneo)
 			for (int j = 0; j < kTorneo; j++) {
 				torneo.add(((Individuo) individuos.get(rand.nextInt(nIndividuos))).copy());
 			}
+			// Se vuelve a ordenar segun individuoSorter (explicado en evaluarPoblacion)
 			Collections.sort(torneo, new IndividuoSorter());
+			// Obtenemos los dos mejores y el resultado de su cruce va a parar a la nueva
+			// población.
 			Individuo prog1 = (Individuo) torneo.get(0);
 			Individuo prog2 = (Individuo) torneo.get(1);
 			try {
@@ -194,9 +232,14 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 	 */
 	@Override
 	public void ejecutar(IDominio dominio) {
+		// Obtenemos el fitness objetivo, la principal condición de parada del
+		// algoritmo.
 		double fitnessObjetivo = dominio.fitnessObjetivo();
+
+		// Creamos la primera población al azar.
 		crearPoblacion();
 
+		// Bucle principal del algoritmo genético.
 		int i;
 		for (i = 0; i < maxGeneraciones; i++) {
 			System.out.println("Generacion " + i);
@@ -210,7 +253,9 @@ public class AlgoritmoGenetico implements IAlgoritmo {
 		if (i == maxGeneraciones) {
 			System.out.println("Se ha alcanzado el maximo de iteraciones: fin del programa.");
 		} else {
-			dominio.calcularFitnessDebug(individuos.get(0));
+			// calcularFitnessDetallado muestra por pantalla los valores del polinomio
+			// encontrado en los puntos de valores.txt
+			dominio.calcularFitnessDetallado(individuos.get(0));
 
 			System.out.println("¡FIN DEL PROGRAMA!");
 		}

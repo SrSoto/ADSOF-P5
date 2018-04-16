@@ -85,6 +85,10 @@ public abstract class Funcion extends Nodo {
 		int funcionesSize = funciones.size();
 		int terminalesSize = terminales.size();
 
+		/*
+		 * Distinguimos el caso de generar los nodos hoja (terminales) de seguir yendo
+		 * abajo en profundidad (funciones.)
+		 */
 		if (profundidad == 0) {
 			return;
 		} else if (profundidad == 1) {
@@ -101,7 +105,12 @@ public abstract class Funcion extends Nodo {
 		}
 		return;
 	}
-	
+
+	/**
+	 * Calcula el valor de la expresión booleana.
+	 * 
+	 * @return boolean con el valor booleano de la expresión
+	 */
 	public boolean calcularBooleano() {
 		return false;
 	}

@@ -58,8 +58,16 @@ public class FuncionMultiplicacion extends Funcion {
 	 */
 	@Override
 	public INodo copy() {
-		FuncionMultiplicacion copy = new FuncionMultiplicacion("*",this.getNHijos());
-		for(INodo nodo : this.getDescendientes()) {
+		/*
+		 * Aquí hay un pequeño pero bastante importante detalle a la hora de crear una
+		 * copia: El simbolo establecido debe introducirse como parámetro como la String
+		 * que es, no con el método de calcularRaiz. De lo contrario, pasariamos un
+		 * puntero a una String y a la hora de aplicar cruces cabe la posibilidad de dar
+		 * lugar a que funciones distintas a la multiplicación tengan este signo, lo
+		 * cual da a confusión en writeIndividuo.
+		 */
+		FuncionMultiplicacion copy = new FuncionMultiplicacion("*", this.getNHijos());
+		for (INodo nodo : this.getDescendientes()) {
 			copy.incluirDescendiente(nodo);
 		}
 		return copy;

@@ -38,13 +38,18 @@ public class FuncionResta extends Funcion {
 	public double calcular() {
 		double ret = 0;
 		List<INodo> descendientes = this.getDescendientes();
+		/*
+		 * Atención aquí al hecho de inicializar ret con el resultado del primer hijo.
+		 * La resta N-aria como tal no tiene sentido, pero la hemos definido como
+		 * aplicar N-1 restas (a - b - c - ... - z).
+		 */
 		ret = descendientes.get(0).calcular();
 		for (int i = 1; i < getNHijos(); i++) {
 			ret -= descendientes.get(i).calcular();
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * Devuelve una copia de este nodo.
 	 * 
@@ -52,8 +57,8 @@ public class FuncionResta extends Funcion {
 	 */
 	@Override
 	public INodo copy() {
-		FuncionResta copy = new FuncionResta("-",this.getNHijos());
-		for(INodo nodo : this.getDescendientes()) {
+		FuncionResta copy = new FuncionResta("-", this.getNHijos());
+		for (INodo nodo : this.getDescendientes()) {
 			copy.incluirDescendiente(nodo);
 		}
 		return copy;

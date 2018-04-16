@@ -22,6 +22,11 @@ public class IndividuoSorter implements Comparator<IIndividuo> {
 	 */
 	@Override
 	public int compare(IIndividuo o1, IIndividuo o2) {
+		/*
+		 * Con nuestro comparador de individuos y el compareTo conseguimos que se ordene
+		 * una lista de izquierda a derecha de mejor fitness a peor y, en caso de
+		 * empate, de menor número de nodos a mayor.
+		 */
 		int diff = ((Individuo) o1).compareTo((Individuo) o2);
 		if (diff < 0) {
 			return -1;

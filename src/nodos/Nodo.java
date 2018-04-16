@@ -86,6 +86,10 @@ public abstract class Nodo implements INodo {
 	public int etiquetar(int etiqueta) {
 		setEtiqueta(etiqueta);
 		etiqueta++;
+		/*
+		 * Con este bucle de llamadar recursivas conseguimos etiquetar en profundidad y
+		 * de izquierda a derecha.
+		 */
 		for (INodo nodo : descendientes) {
 			etiqueta = nodo.etiquetar(etiqueta);
 		}
@@ -105,6 +109,10 @@ public abstract class Nodo implements INodo {
 		if (etiqueta == this.etiqueta) {
 			return this;
 		}
+		/*
+		 * Atencion a la condicion de parada del bucle for, mediante la cual conseguimos
+		 * que nuestra función sirva para individuos de árboles N-arios
+		 */
 		for (int i = 1; i < descendientes.size(); i++) {
 			if (etiqueta < ((Nodo) descendientes.get(i)).etiqueta) {
 				return descendientes.get(i - 1).buscarPorEtiqueta(etiqueta);
@@ -123,10 +131,20 @@ public abstract class Nodo implements INodo {
 	 */
 	@Override
 	public void reemplazar(int etiqueta, IEtiquetable sustituto) {
+		/*
+		 * Cabe destacar del método reemplazar que se trata de uno análogo a
+		 * buscarPorEtiqueta, pero como si fuera desde un nivel de punteros anterior,
+		 * para poder llevar a cabo el swap.
+		 */
 		for (int i = 0; i < descendientes.size(); i++) {
 			Nodo descendiente = (Nodo) descendientes.get(i);
 			if (etiqueta == descendiente.etiqueta) {
 				Nodo swap = (Nodo) ((Nodo) sustituto).copy();
+				/*
+				 * Por tener un arrayList conseguimos que el orden del árbol se mantenga. De lo
+				 * contrario, tendría malas consecuencias espejar un nodo en un punto de cruce
+				 * que se tratara de una resta.
+				 */
 				this.getDescendientes().remove(i);
 				this.getDescendientes().add(i, swap);
 				return;
@@ -146,7 +164,5 @@ public abstract class Nodo implements INodo {
 		}
 		descendientes.get(descendientes.size() - 1).reemplazar(etiqueta, sustituto);
 	}
-	
-	
 
 }

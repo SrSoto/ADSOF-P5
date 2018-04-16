@@ -35,6 +35,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	 */
 	public Individuo(INodo expresion) {
 		this.expresion = expresion.copy();
+		// Dado que empezamos etiquetando desde el cero, incrementamos en 1.
 		numeroNodos = this.etiquetaNodos() + 1;
 	}
 
@@ -51,11 +52,17 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 		numeroNodos = this.etiquetaNodos() + 1;
 		this.fitness = fitness;
 	}
-	
+
+	/**
+	 * Establece el fitness mínimo para premiar los individuos de menos nodos en
+	 * caso de empate de fitness. Con ello se evita que individuos excesivamente
+	 * pequeños se apoderen del algoritmo.
+	 * 
+	 * @param minFitness
+	 */
 	public static void setMinFitness(int minFitness) {
-		Individuo.minFitness=minFitness;
+		Individuo.minFitness = minFitness;
 	}
-	
 
 	/**
 	 * Devuelve un Nodo que representa la raíz, es decir, el Nodo inicial del
@@ -102,7 +109,6 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	@Override
 	public void setFitness(double fitness) {
 		this.fitness = fitness;
-		// System.out.println("fitness en setFitness " + this.fitness);
 	}
 
 	/**
@@ -124,8 +130,10 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 			return;
 		}
 		funcionesSize = funciones.size();
+		// El nodo raíz es una función aleatoria del dominio.
 		this.expresion = funciones.get(rand.nextInt(funcionesSize)).copy();
-
+		// Ahora el nodo creará hijos aleatorios recursivamente hasta alcanzar la
+		// profundidad deseada.
 		((Funcion) this.expresion).arbolAleatorio(profundidad, terminales, funciones);
 		this.etiquetar(0);
 	}
@@ -139,8 +147,13 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	public double calcularExpresion() {
 		return this.expresion.calcular();
 	}
-	
 
+	/**
+	 * Calcula la expresión booleana del individuo. Se podría establecer una
+	 * biyección con el double (0, 1), pero debido a lo especificado sobre el
+	 * fichero de valores en el enunciado, pensamos que era más correcto establecer
+	 * dichos valores como booleanos.
+	 */
 	public boolean calcularExpresionBooleana() {
 		return this.expresion.calcularBooleano();
 	}
@@ -195,7 +208,6 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	public int etiquetar(int etiqueta) {
 		int retornoNNodos;
 		retornoNNodos = expresion.etiquetar(0);
-		// retornoNNodos++;
 		numeroNodos = retornoNNodos;
 
 		return retornoNNodos;
@@ -233,7 +245,6 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	 */
 	public Individuo copy() {
 		Individuo copia = new Individuo(this.expresion, fitness);
-		// copia.fitness = this.fitness;
 		return copia;
 	}
 
@@ -264,6 +275,7 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	@Override
 	public int compareTo(Individuo individuo) {
 		if (this.fitness == individuo.fitness) {
+			// Aquí tiene lugar el parametro de fitness minimo:
 			if (this.fitness > minFitness) {
 				return this.getNumeroNodos() - individuo.getNumeroNodos();
 			}

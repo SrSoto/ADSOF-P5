@@ -73,5 +73,6 @@ public interface IDominio {
 	 */
 	public double calcularFitness(IIndividuo individuo);
 
-	public double calcularFitnessDebug(IIndividuo iIndividuo);
+	
+	public double calcularFitnessDetallado(IIndividuo iIndividuo);
 }
