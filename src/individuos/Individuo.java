@@ -59,6 +59,8 @@ public class Individuo implements IIndividuo, Comparable<Individuo> {
 	 * pequeños se apoderen del algoritmo.
 	 * 
 	 * @param minFitness
+	 *            Fitness mínimo de empate para considerar en la comparación el
+	 *            numero de nodos del individuo
 	 */
 	public static void setMinFitness(int minFitness) {
 		Individuo.minFitness = minFitness;
